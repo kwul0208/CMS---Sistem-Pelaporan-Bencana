@@ -19,6 +19,9 @@
 
     <!-- Custom styles for this template-->
     <link href="{{ asset('assets/css/sb-admin-2.min.css')}}" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet" />
+    
+
 
 </head>
 
@@ -50,9 +53,15 @@
 
             <!-- Nav Item - Charts -->
             <li class="nav-item">
-                <a class="nav-link" href="charts.html">
+                <a class="nav-link" href="{{ route('users.index') }}">
                     <i class="fas fa-fw fa-user-cog"></i>
                     <span>Manage User</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('position.index') }}">
+                    <i class="fas fa-fw fa-sitemap"></i>
+                    <span>Data Position</span></a>
             </li>
 
         </ul>
@@ -166,6 +175,10 @@
     <!-- Page level custom scripts -->
     <script src="{{ asset('assets/js/demo/chart-area-demo.js') }}"></script>
     <script src="{{ asset('assets/js/demo/chart-pie-demo.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 
 </body>
 

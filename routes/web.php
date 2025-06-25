@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\PositionController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,5 +21,13 @@ use App\Http\Controllers\DashboardController;
 // });
 
 Route::get('/', [DashboardController::class, 'index'])->name('home');
+
+Route::resource('users', UserController::class);
+Route::get('users-data', [UserController::class, 'data'])->name('users.data');
+
+Route::resource('position', PositionController::class);
+Route::get('position-data', [PositionController::class, 'data'])->name('position.data');
+
+
 
 
