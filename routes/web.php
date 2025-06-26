@@ -27,6 +27,7 @@ Route::get('users-data', [UserController::class, 'data'])->name('users.data');
 
 Route::resource('position', PositionController::class);
 Route::get('position-data', [PositionController::class, 'data'])->name('position.data');
+Route::get('structure-org', [PositionController::class, 'getStructureOrg']);
 
 
 

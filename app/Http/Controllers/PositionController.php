@@ -62,4 +62,9 @@ class PositionController extends Controller
         $position->delete();
         return redirect()->route('position.index')->with('success', 'Position berhasil dihapus.');
     }
+
+    public function getStructureOrg(){
+        $positions = Position::with('users')->get();
+        return response()->json($positions);
+    }
 }
