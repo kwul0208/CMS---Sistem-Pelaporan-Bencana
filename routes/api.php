@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\TanggapDaruratBencanaController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +15,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
+
+
+
+// Tanggap Darurat Bencana
+Route::get('tanggap-darurat-bencana', [TanggapDaruratBencanaController::class, 'index']);
+Route::get('tanggap-darurat-bencana/show/{id}', [TanggapDaruratBencanaController::class, 'show']);
+Route::post('tanggap-darurat-bencana/store', [TanggapDaruratBencanaController::class, 'store']);
+Route::post('tanggap-darurat-bencana/update', [TanggapDaruratBencanaController::class, 'update']);
+Route::delete('tanggap-darurat-bencana/delete/{id}', [TanggapDaruratBencanaController::class, 'delete']);

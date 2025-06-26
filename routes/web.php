@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PositionController;
+use App\Http\Controllers\TanggapDaruratBencanaController;
 use App\Http\Controllers\UserController;
 
 /*
@@ -27,7 +28,7 @@ Route::get('users-data', [UserController::class, 'data'])->name('users.data');
 
 Route::resource('position', PositionController::class);
 Route::get('position-data', [PositionController::class, 'data'])->name('position.data');
-Route::get('structure-org', [PositionController::class, 'getStructureOrg']);
+Route::get('api/structure-org', [PositionController::class, 'getStructureOrg']);
 
 
 
