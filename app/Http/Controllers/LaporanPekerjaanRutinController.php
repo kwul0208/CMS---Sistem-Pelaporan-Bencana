@@ -1,22 +1,22 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Str;
 
 use App\Models\Laporan;
 use Illuminate\Http\Request;
-use App\Models\Position;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Str;
 
-
-class TanggapDaruratBencanaController extends Controller
+class LaporanPekerjaanRutinController extends Controller
 {
     public function index() {
         return response()->json([
             'status' => 'success',
             'message' => 'Data laporan berhasil diambil.',
-            'data' => Laporan::where('section', 'Tanggap Darurat Bencana')->get()
+            'data' => Laporan::where('section', 'Laporan Pekerjaan Rutin')->get(
+                
+            )
         ]);
     }
 
@@ -24,15 +24,11 @@ class TanggapDaruratBencanaController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'title' => 'required',
-            'type' => 'required',
             'description' => 'required',
             'photo_1' => 'required|image',
             'photo_2' => 'required|image',
             'photo_3' => 'required|image',
             'photo_4' => 'required|image',
-            'photo_5' => 'required|image',
-            'video' => 'required|mimetypes:video/mp4,video/quicktime',
-            'address' => 'required',
             'latitude' => 'required',
             'longitude' => 'required',
             'surveyor' => 'required',
@@ -50,7 +46,7 @@ class TanggapDaruratBencanaController extends Controller
         $validated = $validator->validated();
 
         try {
-            foreach (['photo_1', 'photo_2', 'photo_3', 'photo_4', 'photo_5', 'video'] as $field) {
+            foreach (['photo_1', 'photo_2', 'photo_3', 'photo_4'] as $field) {
                 if ($request->hasFile($field)) {
                     $file = $request->file($field);
                     $filename = Str::uuid() . '.' . $file->getClientOriginalExtension();
@@ -58,7 +54,8 @@ class TanggapDaruratBencanaController extends Controller
                     $validated[$field] = 'uploads/laporan/' . $filename;
                 }
             }
-            $validated['section'] = 'Tanggap Darurat Bencana';
+            $validated['section'] = 'Laporan Pekerjaan Rutin';
+
             $data = Laporan::create($validated);
             return response()->json([
                 'status' => 'success',
@@ -77,7 +74,7 @@ class TanggapDaruratBencanaController extends Controller
         return response()->json([
             'status' => 'success',
             'message' => 'Data laporan berhasil diambil.',
-            'data' => Laporan::find($id)
+            'data' => Laporan::where('section', 'Laporan Pekerjaan Rutin')->where('id', $id)->first()
         ]);
     }
 
@@ -85,15 +82,11 @@ class TanggapDaruratBencanaController extends Controller
     {
         $validator = Validator::make($request->all(), [
            'title' => 'required',
-            'type' => 'required',
             'description' => 'required',
             'photo_1' => 'nullable|image',
             'photo_2' => 'nullable|image',
             'photo_3' => 'nullable|image',
             'photo_4' => 'nullable|image',
-            'photo_5' => 'nullable|image',
-            'video' => 'nullable|mimetypes:video/mp4,video/quicktime',
-            'address' => 'required',
             'latitude' => 'required',
             'longitude' => 'required',
             'surveyor' => 'required',
@@ -112,9 +105,9 @@ class TanggapDaruratBencanaController extends Controller
 
         // Cek dan update jika ada file baru
 
-        $laporan = Laporan::where('section', 'Tanggap Darurat Bencana')->where('id', $request->id)->first();
+        $laporan = Laporan::where('section', 'Laporan Pekerjaan Rutin')->where('id', $request->id)->first();
 
-        foreach (['photo_1', 'photo_2', 'photo_3', 'photo_4', 'photo_5', 'video'] as $field) {
+        foreach (['photo_1', 'photo_2', 'photo_3', 'photo_4'] as $field) {
             if ($request->hasFile($field)) {
                 // Optional: hapus file lama jika diperlukan
                 if ($laporan->$field) {
@@ -155,4 +148,3 @@ class TanggapDaruratBencanaController extends Controller
         ]);
     }
 }
-
