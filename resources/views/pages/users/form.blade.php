@@ -26,6 +26,15 @@
                     <label for="password">Password {{ isset($user) ? '(opsional)' : '' }}</label>
                     <input type="password" class="form-control" id="password" name="password" placeholder="Password">
                 </div>
+                <div class="form-group">
+                    <label for="position_id">Position</label>
+                    <select class="form-control" id="position_id" name="position_id">
+                        <option value="">-- Pilih Position --</option>
+                        @foreach($positions as $position)
+                            <option value="{{ $position->id }}" {{ isset($user) && $user->position_id == $position->id ? 'selected' : '' }}>{{ $position->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
             </div>
             <button type="submit" class="btn btn-primary">Simpan</button>
         </form> 

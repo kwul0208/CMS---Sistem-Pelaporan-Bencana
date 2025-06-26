@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Position;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
@@ -22,14 +23,16 @@ class UserController extends Controller
 
 
     public function create() {
-        return view('pages.users.form');
+        $positions = Position::all();
+        return view('pages.users.form')->with('positions', $positions);
     }
 
     public function store(Request $request) {
         $validated = $request->validate([
             'name' => 'required',
             'email' => 'required|email|unique:users',
-            'password' => 'required|min:6'
+            'password' => 'required|min:6',
+            'position_id' => 'required'
         ]);
         $validated['password'] = bcrypt($validated['password']);
         User::create($validated);
@@ -37,13 +40,15 @@ class UserController extends Controller
     }
 
     public function edit(User $user) {
-        return view('pages.users.form', compact('user'));
+        $positions = Position::all();
+        return view('pages.users.form', compact('user', 'positions'));
     }
 
     public function update(Request $request, User $user) {
         $data = $request->validate([
             'name' => 'required',
-            'email' => "required|email|unique:users,email,{$user->id}"
+            'email' => "required|email|unique:users,email,{$user->id}",
+            'position_id' => 'required'
         ]);
         if ($request->password) {
             $data['password'] = bcrypt($request->password);
