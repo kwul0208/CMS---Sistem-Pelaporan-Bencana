@@ -19,8 +19,8 @@
 
     <!-- Custom styles for this template-->
     <link href="{{ asset('assets/css/sb-admin-2.min.css')}}" rel="stylesheet">
-    <link href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet" />
-    
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css">    
 
 
 </head>
@@ -62,6 +62,14 @@
                 <a class="nav-link" href="{{ route('position.index') }}">
                     <i class="fas fa-fw fa-sitemap"></i>
                     <span>Data Position</span></a>
+            </li>
+            <div class="sidebar-heading">
+                Report
+            </div>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('report.tanggap-darurat-bencana.index') }}">
+                    <i class="fas fa-fw fa-file-pdf"></i>
+                    <span>Tanggap Darurat Bencana</span></a>
             </li>
 
         </ul>
@@ -176,7 +184,10 @@
     <script src="{{ asset('assets/js/demo/chart-area-demo.js') }}"></script>
     <script src="{{ asset('assets/js/demo/chart-pie-demo.js') }}"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>    
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 

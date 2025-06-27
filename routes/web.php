@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PositionController;
+use App\Http\Controllers\ReportTanggapDaruratBencanaController;
 use App\Http\Controllers\TanggapDaruratBencanaController;
 use App\Http\Controllers\UserController;
 
@@ -29,6 +30,11 @@ Route::get('users-data', [UserController::class, 'data'])->name('users.data');
 Route::resource('position', PositionController::class);
 Route::get('position-data', [PositionController::class, 'data'])->name('position.data');
 Route::get('api/structure-org', [PositionController::class, 'getStructureOrg']);
+
+Route::prefix('report')->group(function() {
+    Route::get('tanggap-darurat-bencana', [ReportTanggapDaruratBencanaController::class, 'index'])->name('report.tanggap-darurat-bencana.index');
+    Route::get('tanggap-darurat-bencana-data', [ReportTanggapDaruratBencanaController::class, 'data'])->name('report.tanggap-darurat-bencana.data');
+});
 
 
 
