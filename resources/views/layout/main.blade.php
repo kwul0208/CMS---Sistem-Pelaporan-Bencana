@@ -76,6 +76,11 @@
                     <i class="fas fa-fw fa-file-pdf"></i>
                     <span>Laporan Pekerjaan Rutin</span></a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('report.data-saluran.index') }}">
+                    <i class="fas fa-fw fa-file-pdf"></i>
+                    <span>Data Saluran</span></a>
+            </li>
 
         </ul>
         <!-- End of Sidebar -->

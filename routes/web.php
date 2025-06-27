@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PositionController;
+use App\Http\Controllers\ReportDataSaluranController;
 use App\Http\Controllers\ReportLaporanPekerjaanRutinController;
 use App\Http\Controllers\ReportTanggapDaruratBencanaController;
 use App\Http\Controllers\TanggapDaruratBencanaController;
@@ -38,6 +39,9 @@ Route::prefix('report')->group(function() {
 
     Route::get('laporan-pekerjaan-rutin', [ReportLaporanPekerjaanRutinController::class, 'index'])->name('report.laporan-pekerjaan-rutin.index');
     Route::get('laporan-pekerjaan-rutin-data', [ReportLaporanPekerjaanRutinController::class, 'data'])->name('report.laporan-pekerjaan-rutin.data');
+
+    Route::get('data-saluran', [ReportDataSaluranController::class, 'index'])->name('report.data-saluran.index');
+    Route::get('data-saluran-data', [ReportDataSaluranController::class, 'data'])->name('report.data-saluran.data');
 });
 
 
