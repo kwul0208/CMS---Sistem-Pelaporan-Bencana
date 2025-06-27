@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DataSaluranController;
 use App\Http\Controllers\LaporanPekerjaanRutinController;
 use App\Http\Controllers\TanggapDaruratBencanaController;
 use Illuminate\Http\Request;
@@ -35,3 +36,10 @@ Route::get('laporan-pekerjaan-rutin/show/{id}', [LaporanPekerjaanRutinController
 Route::post('laporan-pekerjaan-rutin/store', [LaporanPekerjaanRutinController::class, 'store']);
 Route::post('laporan-pekerjaan-rutin/update', [LaporanPekerjaanRutinController::class, 'update']);
 Route::delete('laporan-pekerjaan-rutin/delete/{id}', [LaporanPekerjaanRutinController::class, 'delete']);
+
+// Data Saluran
+Route::get('data-saluran', [DataSaluranController::class, 'index']);
+Route::get('data-saluran/show/{id}', [DataSaluranController::class, 'show']);
+Route::post('data-saluran/store', [DataSaluranController::class, 'store']);
+Route::post('data-saluran/update', [DataSaluranController::class, 'update']);
+Route::delete('data-saluran/delete/{id}', [DataSaluranController::class, 'delete']);
