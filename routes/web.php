@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PositionController;
+use App\Http\Controllers\ReportLaporanPekerjaanRutinController;
 use App\Http\Controllers\ReportTanggapDaruratBencanaController;
 use App\Http\Controllers\TanggapDaruratBencanaController;
 use App\Http\Controllers\UserController;
@@ -34,6 +35,9 @@ Route::get('api/structure-org', [PositionController::class, 'getStructureOrg']);
 Route::prefix('report')->group(function() {
     Route::get('tanggap-darurat-bencana', [ReportTanggapDaruratBencanaController::class, 'index'])->name('report.tanggap-darurat-bencana.index');
     Route::get('tanggap-darurat-bencana-data', [ReportTanggapDaruratBencanaController::class, 'data'])->name('report.tanggap-darurat-bencana.data');
+
+    Route::get('laporan-pekerjaan-rutin', [ReportLaporanPekerjaanRutinController::class, 'index'])->name('report.laporan-pekerjaan-rutin.index');
+    Route::get('laporan-pekerjaan-rutin-data', [ReportLaporanPekerjaanRutinController::class, 'data'])->name('report.laporan-pekerjaan-rutin.data');
 });
 
 
