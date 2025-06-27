@@ -3,6 +3,7 @@
 use App\Http\Controllers\DataSaluranController;
 use App\Http\Controllers\LaporanPekerjaanRutinController;
 use App\Http\Controllers\TanggapDaruratBencanaController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -21,6 +22,9 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
+// Profile
+Route::get('profile/{id}', [UserController::class, 'getAPIProfile']);
+Route::post('profile/update/{id}', [UserController::class, 'updateAPIProfile']);
 
 
 // Tanggap Darurat Bencana

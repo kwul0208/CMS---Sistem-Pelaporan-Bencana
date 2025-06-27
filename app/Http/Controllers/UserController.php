@@ -61,4 +61,43 @@ class UserController extends Controller
         $user->delete();
         return redirect()->route('users.index')->with('success', 'User berhasil dihapus.');
     }
+
+    public function getAPIProfile($id) {
+        $data = User::find($id);
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Data berhasil diambil.',
+            'data' => $data
+        ]);
+    }
+
+    public function updateAPIProfile(Request $request, $id) {
+        $validated = $request->validate([
+            'name' => 'required',
+            'password' => 'nullable'
+        ]);
+
+        $user = User::find($id);
+
+        if (!$user) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'User tidak ditemukan.'
+            ], 404);
+        }
+
+        $user->name = $validated['name'];
+
+        if (!empty($validated['password'])) {
+            $user->password = bcrypt($validated['password']);
+        }
+
+        $user->save();
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Data berhasil diupdate.',
+            'data' => $user
+        ]);
+    }
 }
