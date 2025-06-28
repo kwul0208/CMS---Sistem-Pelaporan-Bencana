@@ -98,7 +98,7 @@ class DataSaluranController extends Controller
         return response()->json([
             'status' => 'success',
             'message' => 'Data laporan berhasil diambil.',
-            'data' => Laporan::where('section', 'Data Saluran')->where('id', $id)->first()
+            'data' => Laporan::with('photo_saluran')->where('section', 'Data Saluran')->where('id', $id)->first()
         ]);
     }
 
