@@ -13,13 +13,24 @@ use Illuminate\Support\Str;
 
 class DataSaluranController extends Controller
 {
-    public function index() {
+    public function index(Request $request) {
+        $query = Laporan::select('laporan.*', 'users.name as surveyor')
+            ->leftJoin('users', 'laporan.surveyor', '=', 'users.id')
+            ->where('section', 'Data Saluran');
+
+        if ($search = $request->input('search')) {
+            $query->where(function ($q) use ($search) {
+                $q->where('laporan.title', 'LIKE', '%' . $search . '%')
+                  ->orWhere('laporan.description', 'LIKE', '%' . $search . '%')
+                  ->orWhere('users.name', 'LIKE', '%' . $search . '%')
+                  ->orWhere('laporan.date', 'LIKE', '%' . $search . '%');
+            });
+        }
+
         return response()->json([
             'status' => 'success',
             'message' => 'Data berhasil diambil.',
-            'data' => Laporan::where('section', 'Data Saluran')->get(
-                
-            )
+            'data' => $query->get()
         ]);
     }
 
