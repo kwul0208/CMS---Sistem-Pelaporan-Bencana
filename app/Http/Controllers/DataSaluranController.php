@@ -15,9 +15,15 @@ class DataSaluranController extends Controller
 {
     public function index(Request $request) {
         $query = Laporan::select('laporan.*', 'users.name as surveyor')
+            ->with('photo_saluran')
             ->leftJoin('users', 'laporan.surveyor', '=', 'users.id')
-            ->where('section', 'Data Saluran');
+            ->where('section', 'Data Saluran')
+            ->orderByDesc('laporan.created_at');
 
+        if (auth()->user()->role != 'admin') {
+            $query->where('laporan.surveyor', auth()->user()->id);
+        }
+        
         if ($search = $request->input('search')) {
             $query->where(function ($q) use ($search) {
                 $q->where('laporan.title', 'LIKE', '%' . $search . '%')

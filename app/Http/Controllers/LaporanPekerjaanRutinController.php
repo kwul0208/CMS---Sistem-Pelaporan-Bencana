@@ -13,7 +13,11 @@ class LaporanPekerjaanRutinController extends Controller
     public function index(Request $request) {
         $query = Laporan::select('laporan.*', 'users.name as surveyor')
             ->leftJoin('users', 'laporan.surveyor', '=', 'users.id')
-            ->where('section', 'Laporan Pekerjaan Rutin');
+            ->where('section', 'Laporan Pekerjaan Rutin')->orderByDesc('laporan.created_at');
+        
+        if (auth()->user()->role != 'admin') {
+            $query->where('laporan.surveyor', auth()->user()->id);
+        }
 
         if ($search = $request->input('search')) {
             $query->where(function ($q) use ($search) {
