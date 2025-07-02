@@ -1,0 +1,14 @@
+Dokumentasi implementasi Firebase FCM HTTP V1 di Laravel
+
+
+1. run composer require google/apiclient
+2. tempatkan dan sesuaikan code dibawah ini ke dalam project laravel anda
+- helper.php
+    code didalam file ini adalah code dinamis, baiknya tempatkan di file helper agar bisa dipanggil sesuai kebutuhan.
+    untuk isi ataupun nama variable jangan di ganti.
+
+- TestController.php
+    code pada file ini adalah code untuk di tempatkan pada setiap kebutuhan trigger pengiriman nottifikasi.
+    Ambil per functionnya saja, berikut ada 2 function yg tersedia: 
+    1. sendNotifApproval = function ini digunakan untuk mengirim notifikasi approval dari atasan ke user / bawahannya
+    2. sendNotifRequestApproval = function ini digunakan untuk mengirim notifikasi request approval dari user / bawahan ke atasannya

@@ -5,6 +5,7 @@ use Illuminate\Support\Str;
 
 use App\Models\Laporan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
@@ -72,6 +73,36 @@ class LaporanPekerjaanRutinController extends Controller
             $validated['section'] = 'Laporan Pekerjaan Rutin';
 
             $data = Laporan::create($validated);
+
+            // ===== PUSH NOTIFICATION =====
+            $projectId = env('FIREBASE_PROJECT_ID');
+            $topic = "laporan";
+            $fullname = auth()->user()->name;
+            $name_request = "Laporan Pekerjaan Rutin";
+            $route = "laporan_pekerjaan_rutin";
+
+            $message = [
+                "message" => [
+                    "topic" => $topic,
+                    "notification" => [
+                        "title" => $name_request,
+                        "body" => "{$fullname} telah menginput data laporan {$name_request}"
+                    ],
+                    "data" => [
+                        "route" => $route
+                    ]
+                ]
+            ];
+            
+            try {
+                $accessToken = getAccessToken();
+                $response = sendMessage($accessToken, $projectId, $message);
+                Log::info('Message sent successfully: ' . print_r($response, true));
+            } catch (\Exception $e) {
+                Log::info('Error: ' . $e->getMessage());
+            }
+            // ===== END PUSH NOTIFICATION =====
+
             return response()->json([
                 'status' => 'success',
                 'message' => 'Data laporan berhasil disimpan.',

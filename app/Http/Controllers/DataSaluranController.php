@@ -6,6 +6,7 @@ use App\Models\Laporan;
 use App\Models\PhotoSaluran;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
@@ -94,6 +95,35 @@ class DataSaluranController extends Controller
                     'photo' => $path
                 ]);
             }
+
+            // ===== PUSH NOTIFICATION =====
+            $projectId = env('FIREBASE_PROJECT_ID');
+            $topic = "laporan";
+            $fullname = auth()->user()->name;
+            $name_request = "Data Saluran";
+            $route = "data_saluran";
+
+            $message = [
+                "message" => [
+                    "topic" => $topic,
+                    "notification" => [
+                        "title" => $name_request,
+                        "body" => "{$fullname} telah menginput data laporan {$name_request}"
+                    ],
+                    "data" => [
+                        "route" => $route
+                    ]
+                ]
+            ];
+            
+            try {
+                $accessToken = getAccessToken();
+                $response = sendMessage($accessToken, $projectId, $message);
+                Log::info('Message sent successfully: ' . print_r($response, true));
+            } catch (\Exception $e) {
+                Log::info('Error: ' . $e->getMessage());
+            }
+            // ===== END PUSH NOTIFICATION =====
 
             DB::commit();
             return response()->json([
