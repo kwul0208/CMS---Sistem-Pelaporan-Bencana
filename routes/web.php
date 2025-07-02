@@ -36,12 +36,15 @@ Route::middleware('auth')->group(function() {
 
     Route::prefix('report')->group(function() {
         Route::get('tanggap-darurat-bencana', [ReportTanggapDaruratBencanaController::class, 'index'])->name('report.tanggap-darurat-bencana.index');
+        Route::get('tanggap-darurat-bencana/export', [ReportTanggapDaruratBencanaController::class, 'export'])->name('report.tanggap-darurat-bencana.export');
         Route::get('tanggap-darurat-bencana-data', [ReportTanggapDaruratBencanaController::class, 'data'])->name('report.tanggap-darurat-bencana.data');
-
+        
         Route::get('laporan-pekerjaan-rutin', [ReportLaporanPekerjaanRutinController::class, 'index'])->name('report.laporan-pekerjaan-rutin.index');
+        Route::get('laporan-pekerjaan-rutin/export', [ReportLaporanPekerjaanRutinController::class, 'export'])->name('report.laporan-pekerjaan-rutin.export');
         Route::get('laporan-pekerjaan-rutin-data', [ReportLaporanPekerjaanRutinController::class, 'data'])->name('report.laporan-pekerjaan-rutin.data');
 
         Route::get('data-saluran', [ReportDataSaluranController::class, 'index'])->name('report.data-saluran.index');
+        Route::get('data-saluran/export', [ReportDataSaluranController::class, 'export'])->name('report.data-saluran.export');
         Route::get('data-saluran-data', [ReportDataSaluranController::class, 'data'])->name('report.data-saluran.data');
     });
 });

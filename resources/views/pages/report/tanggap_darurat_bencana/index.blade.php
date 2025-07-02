@@ -3,6 +3,9 @@
 @section('content')
 
     <div class="container-fluid">
+        <div style="float:right;" class="mb-5">
+            <a href="{{ route('report.tanggap-darurat-bencana.export') }}" class="btn btn-primary">Export Excel dengan File</a>
+        </div>
         <table id="tanggap_darurat_bencana-table" class="table table-bordered table-striped" style="width:100%;overflow-x:auto;">
             <thead>
                 <tr>

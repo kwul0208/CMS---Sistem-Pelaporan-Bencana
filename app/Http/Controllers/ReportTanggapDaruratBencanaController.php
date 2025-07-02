@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ReportExport;
 use App\Models\Laporan;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 use Yajra\DataTables\Facades\DataTables;
 
 class ReportTanggapDaruratBencanaController extends Controller
@@ -11,7 +13,6 @@ class ReportTanggapDaruratBencanaController extends Controller
     public function index() {
         return view('pages.report.tanggap_darurat_bencana.index');
     }
-
     public function data() {
         return DataTables::of(Laporan::with('surveyor_name')->where('section', 'Tanggap Darurat Bencana')->get())
             ->addColumn('date', function ($row) {
@@ -57,6 +58,11 @@ class ReportTanggapDaruratBencanaController extends Controller
             ->addIndexColumn() 
 
             ->make(true);
+    }
+
+    public function export()
+    {
+        return Excel::download(new ReportExport('Tanggap Darurat Bencana'), 'report_tanggap_darurat_bencana_' . date('Y-m-d') . '.xlsx');
     }
 
 }

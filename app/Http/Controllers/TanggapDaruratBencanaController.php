@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ReportExport;
 use App\Models\Laporan;
 use Illuminate\Http\Request;
 use App\Models\Position;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
-
+use Maatwebsite\Excel\Facades\Excel;
 
 class TanggapDaruratBencanaController extends Controller
 {

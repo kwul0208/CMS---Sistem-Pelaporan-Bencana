@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ReportExport;
 use App\Models\Laporan;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 use Yajra\DataTables\Facades\DataTables;
 
 class ReportDataSaluranController extends Controller
@@ -47,6 +49,11 @@ class ReportDataSaluranController extends Controller
             ->addIndexColumn() 
 
             ->make(true);
+    }
+    
+    public function export()
+    {
+        return Excel::download(new ReportExport('Data Saluran'), 'report_data_saluran_' . date('Y-m-d') . '.xlsx');
     }
 
 }
