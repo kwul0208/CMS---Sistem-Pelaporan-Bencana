@@ -65,6 +65,11 @@ class PositionController extends Controller
 
     public function getStructureOrg(){
         $positions = Position::with('users')->get();
-        return response()->json($positions);
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Data berhasil diambil.',
+            'data' => $positions
+        ]);
     }
 }

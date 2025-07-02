@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthApiController;
 use App\Http\Controllers\DataSaluranController;
 use App\Http\Controllers\LaporanPekerjaanRutinController;
+use App\Http\Controllers\PositionController;
 use App\Http\Controllers\TanggapDaruratBencanaController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
@@ -27,6 +28,9 @@ Route::middleware('auth:sanctum')->group(function () {
     // Profile
     Route::get('profile/{id}', [UserController::class, 'getAPIProfile']);
     Route::post('profile/update/{id}', [UserController::class, 'updateAPIProfile']);
+
+    // ORG
+    Route::get('structure-org', [PositionController::class, 'getStructureOrg']);
 
 
     // Tanggap Darurat Bencana

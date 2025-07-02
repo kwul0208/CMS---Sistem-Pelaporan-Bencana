@@ -33,7 +33,6 @@ Route::middleware('auth')->group(function() {
 
     Route::resource('position', PositionController::class);
     Route::get('position-data', [PositionController::class, 'data'])->name('position.data');
-    Route::get('api/structure-org', [PositionController::class, 'getStructureOrg']);
 
     Route::prefix('report')->group(function() {
         Route::get('tanggap-darurat-bencana', [ReportTanggapDaruratBencanaController::class, 'index'])->name('report.tanggap-darurat-bencana.index');

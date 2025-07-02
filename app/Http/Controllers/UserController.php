@@ -66,7 +66,7 @@ class UserController extends Controller
     }
 
     public function getAPIProfile($id) {
-        $data = User::find($id);
+        $data = User::with('position')->find($id);
         return response()->json([
             'status' => 'success',
             'message' => 'Data berhasil diambil.',
