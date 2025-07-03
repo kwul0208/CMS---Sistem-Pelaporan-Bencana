@@ -32,7 +32,9 @@ class LaporanPekerjaanRutinController extends Controller
         return response()->json([
             'status' => 'success',
             'message' => 'Data laporan berhasil diambil.',
-            'data' => $query->get()
+            'data' => Laporan::where('section', 'Laporan Pekerjaan Rutin')->get(
+                
+            )
         ]);
     }
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ReportExport;
 use App\Models\Laporan;
 use Illuminate\Http\Request;
 use App\Models\Position;
@@ -9,7 +10,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
-
+use Maatwebsite\Excel\Facades\Excel;
 
 class TanggapDaruratBencanaController extends Controller
 {
@@ -35,7 +36,7 @@ class TanggapDaruratBencanaController extends Controller
         return response()->json([
             'status' => 'success',
             'message' => 'Data laporan berhasil diambil.',
-            'data' => $query->get()
+            'data' => Laporan::where('section', 'Tanggap Darurat Bencana')->get()
         ]);
     }
 

@@ -37,7 +37,9 @@ class DataSaluranController extends Controller
         return response()->json([
             'status' => 'success',
             'message' => 'Data berhasil diambil.',
-            'data' => $query->get()
+            'data' => Laporan::where('section', 'Data Saluran')->get(
+                
+            )
         ]);
     }
 

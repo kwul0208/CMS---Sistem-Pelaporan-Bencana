@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ReportExport;
 use App\Models\Laporan;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 use Yajra\DataTables\Facades\DataTables;
 
 class ReportLaporanPekerjaanRutinController extends Controller
@@ -50,4 +52,8 @@ class ReportLaporanPekerjaanRutinController extends Controller
             ->make(true);
     }
 
+    public function export()
+    {
+        return Excel::download(new ReportExport('Laporan Pekerjaan Rutin'), 'report_laporan_pekerjaan_rutin_' . date('Y-m-d') . '.xlsx');
+    }
 }
