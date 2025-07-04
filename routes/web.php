@@ -24,6 +24,15 @@ use App\Http\Controllers\UserController;
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::get('/optimize-clear', function() {
+        \Artisan::call('optimize:clear');
+        return 'Cache cleared';
+    })->name('optimize.clear');
+
+    Route::get('/storage-link', function() {
+        \Artisan::call('storage:link');
+        return 'Storage linked';
+    })->name('storage.link');
 
 Route::middleware('auth')->group(function() {
     Route::get('/', [DashboardController::class, 'index'])->name('home');
@@ -47,8 +56,6 @@ Route::middleware('auth')->group(function() {
         Route::get('data-saluran/export', [ReportDataSaluranController::class, 'export'])->name('report.data-saluran.export');
         Route::get('data-saluran-data', [ReportDataSaluranController::class, 'data'])->name('report.data-saluran.data');
     });
+
 });
-
-
-
 

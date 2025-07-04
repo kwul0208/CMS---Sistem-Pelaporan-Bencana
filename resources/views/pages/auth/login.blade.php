@@ -9,7 +9,9 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Login</title>
+    <title>Login E-Gapura</title>
+    <link rel="icon" href="{{ asset('assets/img/logo_upt.png') }}" type="image/x-icon">
+
 
     <!-- Custom fonts for this template-->
     <link href="{{ asset('assets/vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
@@ -38,7 +40,8 @@
                             <div class="col-lg-12">
                                 <div class="p-5">
                                     <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-4">Selamat Datang!</h1>
+                                        <img src="{{ asset('assets/img/logo_upt.png') }}" width="150" class="mb-4" alt="">
+                                        <h1 class="h4 text-gray-900 mb-4">Selamat Datang di E-Gapura!</h1>
                                     </div>
                                     <form class="user" method="POST" action="{{ route('login') }}">
                                         @csrf
