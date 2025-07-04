@@ -128,7 +128,7 @@ class ReportExport implements FromCollection, WithHeadings, WithDrawings, WithEv
                 ];
     
                 foreach ($fotoPaths as $col => $path) {
-                    $fullPath = public_path('storage/' . $path);
+                    $fullPath = storage_path('app/public/' . $path);
                     if (file_exists($fullPath)) {
                         $drawing = new Drawing();
                         $drawing->setName('Photo');
@@ -152,7 +152,7 @@ class ReportExport implements FromCollection, WithHeadings, WithDrawings, WithEv
                 ];
     
                 foreach ($fotoPaths as $col => $path) {
-                    $fullPath = public_path('storage/' . $path);
+                    $fullPath = storage_path('app/public/' . $path);
                     if (file_exists($fullPath)) {
                         $drawing = new Drawing();
                         $drawing->setName('Photo');
@@ -169,7 +169,7 @@ class ReportExport implements FromCollection, WithHeadings, WithDrawings, WithEv
         }else if($this->section == 'Data Saluran'){
             foreach ($this->laporans as $laporan) {
             // Foto tunggal
-            $foto1Path = public_path('storage/' . $laporan->photo_1);
+            $foto1Path = storage_path('app/public/' . $laporan->photo_1);
             if (file_exists($foto1Path)) {
                 $drawing = new Drawing();
                 $drawing->setName('Photo 1');
@@ -183,7 +183,7 @@ class ReportExport implements FromCollection, WithHeadings, WithDrawings, WithEv
             // Foto saluran (banyak)
             $offset = 0; // untuk memindahkan gambar secara vertikal
             foreach ($laporan->photo_saluran as $photo) {
-                $photoPath = public_path('storage/' . $photo->photo);
+                $photoPath = storage_path('app/public/' . $photo->photo);
                 if (file_exists($photoPath)) {
                     $drawing = new Drawing();
                     $drawing->setName('Saluran');
@@ -215,7 +215,7 @@ class ReportExport implements FromCollection, WithHeadings, WithDrawings, WithEv
                     foreach ($this->laporans as $laporan) {
                         $hasImage = false;
                         foreach (['photo_1', 'photo_2', 'photo_3', 'photo_4', 'photo_5'] as $field) {
-                            $path = public_path('storage/' . $laporan->$field);
+                            $path = storage_path('app/public/' . $laporan->$field);
                             if (file_exists($path)) {
                                 $hasImage = true;
                                 break;
@@ -237,7 +237,7 @@ class ReportExport implements FromCollection, WithHeadings, WithDrawings, WithEv
                     foreach ($this->laporans as $laporan) {
                         $hasImage = false;
                         foreach (['photo_1', 'photo_2', 'photo_3', 'photo_4'] as $field) {
-                            $path = public_path('storage/' . $laporan->$field);
+                            $path = storage_path('app/public/' . $laporan->$field);
                             if (file_exists($path)) {
                                 $hasImage = true;
                                 break;
@@ -262,7 +262,7 @@ class ReportExport implements FromCollection, WithHeadings, WithDrawings, WithEv
                         $jumlahFoto = 0;
 
                         // Cek photo_1 (satu gambar)
-                        $photo1Path = public_path('storage/' . $laporan->photo_1);
+                        $photo1Path = storage_path('app/public/' . $laporan->photo_1);
                         if (file_exists($photo1Path)) {
                             $jumlahFoto++;
                         }
@@ -270,7 +270,7 @@ class ReportExport implements FromCollection, WithHeadings, WithDrawings, WithEv
                         // Cek semua gambar dari relasi photo_saluran (banyak)
                         if ($laporan->relationLoaded('photo_saluran') || method_exists($laporan, 'photo_saluran')) {
                             foreach ($laporan->photo_saluran as $photo) {
-                                $path = public_path('storage/' . $photo->photo);
+                                $path = storage_path('app/public/' . $photo->photo);
                                 if (file_exists($path)) {
                                     $jumlahFoto++;
                                 }
