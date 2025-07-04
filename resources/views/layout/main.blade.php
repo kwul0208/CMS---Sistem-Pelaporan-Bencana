@@ -9,7 +9,10 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Dashboard</title>
+    <title>E-Gapura</title>
+
+    <!-- Browser icon -->
+    <link rel="icon" href="{{ asset('assets/img/logo_upt.png') }}" type="image/x-icon">
 
     <!-- Custom fonts for this template-->
     <link href="{{ asset('assets/vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
@@ -20,8 +23,7 @@
     <!-- Custom styles for this template-->
     <link href="{{ asset('assets/css/sb-admin-2.min.css')}}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css">    
-
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css">
 
 </head>
 
@@ -35,10 +37,10 @@
 
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-                <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-file-signature"></i>
+                <div class="sidebar-brand-icon">
+                    <img src="{{ asset('assets/img/logo_upt.png') }}" width="50" height="50" alt="Logo UPT">
                 </div>
-                <div class="sidebar-brand-text mx-3">SPB <sup></sup></div>
+                <div class="sidebar-brand-text mx-3">E-Gapura</div>
             </a>
 
             <!-- Divider -->
