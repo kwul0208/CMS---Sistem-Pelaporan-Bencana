@@ -15,7 +15,7 @@ class ReportLaporanPekerjaanRutinController extends Controller
     }
 
     public function data() {
-        return DataTables::of(Laporan::with('surveyor_name')->where('section', 'Laporan Pekerjaan Rutin')->get())
+        return DataTables::of(Laporan::with('surveyor_name')->where('section', 'Laporan Pekerjaan Rutin')->orderBy('date', 'desc')->get())
             ->addColumn('date', function ($row) {
                 return $row->date;
             })

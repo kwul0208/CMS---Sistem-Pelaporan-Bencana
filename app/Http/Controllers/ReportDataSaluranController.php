@@ -15,7 +15,7 @@ class ReportDataSaluranController extends Controller
     }
 
     public function data() {
-        return DataTables::of(Laporan::with('surveyor_name')->where('section', 'Data Saluran')->get())
+        return DataTables::of(Laporan::with('surveyor_name')->where('section', 'Data Saluran')->orderBy('date', 'desc')->get())
             ->addColumn('date', function ($row) {
                 return $row->date;
             })

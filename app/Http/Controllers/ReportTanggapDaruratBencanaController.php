@@ -14,7 +14,7 @@ class ReportTanggapDaruratBencanaController extends Controller
         return view('pages.report.tanggap_darurat_bencana.index');
     }
     public function data() {
-        return DataTables::of(Laporan::with('surveyor_name')->where('section', 'Tanggap Darurat Bencana')->get())
+        return DataTables::of(Laporan::with('surveyor_name')->where('section', 'Tanggap Darurat Bencana')->orderBy('date', 'desc')->get())
             ->addColumn('date', function ($row) {
                 return $row->date;
             })
