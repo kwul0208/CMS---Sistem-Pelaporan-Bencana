@@ -54,3 +54,5 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('data-saluran/update', [DataSaluranController::class, 'update']);
     Route::delete('data-saluran/delete/{id}', [DataSaluranController::class, 'delete']);
 });
+
+Route::get('/testing', [TanggapDaruratBencanaController::class, 'testing']);

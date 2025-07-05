@@ -23,7 +23,6 @@ class LaporanPekerjaanRutinController extends Controller
         if ($search = $request->input('search')) {
             $query->where(function ($q) use ($search) {
                 $q->where('laporan.title', 'LIKE', '%' . $search . '%')
-                  ->orWhere('laporan.description', 'LIKE', '%' . $search . '%')
                   ->orWhere('users.name', 'LIKE', '%' . $search . '%')
                   ->orWhere('laporan.date', 'LIKE', '%' . $search . '%');
             });
@@ -32,9 +31,7 @@ class LaporanPekerjaanRutinController extends Controller
         return response()->json([
             'status' => 'success',
             'message' => 'Data laporan berhasil diambil.',
-            'data' => Laporan::where('section', 'Laporan Pekerjaan Rutin')->get(
-                
-            )
+            'data' => $query->get()
         ]);
     }
 

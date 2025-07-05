@@ -28,7 +28,6 @@ class DataSaluranController extends Controller
         if ($search = $request->input('search')) {
             $query->where(function ($q) use ($search) {
                 $q->where('laporan.title', 'LIKE', '%' . $search . '%')
-                  ->orWhere('laporan.description', 'LIKE', '%' . $search . '%')
                   ->orWhere('users.name', 'LIKE', '%' . $search . '%')
                   ->orWhere('laporan.date', 'LIKE', '%' . $search . '%');
             });
@@ -37,9 +36,7 @@ class DataSaluranController extends Controller
         return response()->json([
             'status' => 'success',
             'message' => 'Data berhasil diambil.',
-            'data' => Laporan::where('section', 'Data Saluran')->get(
-                
-            )
+            'data' => $query->get()
         ]);
     }
 
