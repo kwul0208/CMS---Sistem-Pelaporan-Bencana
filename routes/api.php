@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthApiController;
 use App\Http\Controllers\DataSaluranController;
 use App\Http\Controllers\LaporanPekerjaanRutinController;
+use App\Http\Controllers\LaporanPekerjaanSwakelolaController;
 use App\Http\Controllers\PositionController;
 use App\Http\Controllers\TanggapDaruratBencanaController;
 use App\Http\Controllers\UserController;
@@ -53,6 +54,12 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('data-saluran/store', [DataSaluranController::class, 'store']);
     Route::post('data-saluran/update', [DataSaluranController::class, 'update']);
     Route::delete('data-saluran/delete/{id}', [DataSaluranController::class, 'delete']);
+
+    Route::get('laporan-pekerjaan-swakelola', [LaporanPekerjaanSwakelolaController::class, 'index']);
+    Route::get('laporan-pekerjaan-swakelola/show/{id}', [LaporanPekerjaanSwakelolaController::class, 'show']);
+    Route::post('laporan-pekerjaan-swakelola/store', [LaporanPekerjaanSwakelolaController::class, 'store']);
+    Route::post('laporan-pekerjaan-swakelola/update', [LaporanPekerjaanSwakelolaController::class, 'update']);
+    Route::delete('laporan-pekerjaan-swakelola/delete/{id}', [LaporanPekerjaanSwakelolaController::class, 'delete']);
 });
 
 Route::get('/testing', [TanggapDaruratBencanaController::class, 'testing']);

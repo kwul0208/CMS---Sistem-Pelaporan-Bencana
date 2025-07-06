@@ -36,7 +36,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
                 <div class="sidebar-brand-icon">
                     <img src="{{ asset('assets/img/logo_upt.png') }}" width="50" height="50" alt="Logo UPT">
                 </div>
@@ -47,8 +47,8 @@
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
-                <a class="nav-link" href="index.html">
+            <li class="nav-item {{ (request()->routeIs('home') || request()->routeIs('home')) ? 'active' : '' }}">
+                <a class="nav-link" href="/">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Beranda</span></a>
             </li>
@@ -56,13 +56,13 @@
             <!-- Nav Item - Charts -->
 
             @if (auth()->user()->role == 'admin')
-                <li class="nav-item">
+                <li class="nav-item {{ request()->routeIs('users.index') ? 'active' : '' }}">
                     <a class="nav-link" href="{{ route('users.index') }}">
                         <i class="fas fa-fw fa-user-cog"></i>
                         <span>Manage User</span></a>
                 </li>
 
-                <li class="nav-item">
+                <li class="nav-item {{ request()->routeIs('position.index') ? 'active' : '' }}">
                     <a class="nav-link" href="{{ route('position.index') }}">
                         <i class="fas fa-fw fa-sitemap"></i>
                         <span>Data Position</span></a>
@@ -71,17 +71,22 @@
             <div class="sidebar-heading">
                 Report
             </div>
-            <li class="nav-item">
+            <li class="nav-item {{ request()->routeIs('report.tanggap-darurat-bencana.index') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('report.tanggap-darurat-bencana.index') }}">
                     <i class="fas fa-fw fa-file-pdf"></i>
                     <span>Tanggap Darurat Bencana</span></a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item {{ request()->routeIs('report.laporan-pekerjaan-rutin.index') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('report.laporan-pekerjaan-rutin.index') }}">
                     <i class="fas fa-fw fa-file-pdf"></i>
                     <span>Laporan Pekerjaan Rutin</span></a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item {{ request()->routeIs('report.laporan-pekerjaan-swakelola.index') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('report.laporan-pekerjaan-swakelola.index') }}">
+                    <i class="fas fa-fw fa-file-pdf"></i>
+                    <span>Pekerjaan Swakelola</span></a>
+            </li>
+            <li class="nav-item {{ request()->routeIs('report.data-saluran.index') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('report.data-saluran.index') }}">
                     <i class="fas fa-fw fa-file-pdf"></i>
                     <span>Data Saluran</span></a>

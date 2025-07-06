@@ -6,6 +6,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PositionController;
 use App\Http\Controllers\ReportDataSaluranController;
 use App\Http\Controllers\ReportLaporanPekerjaanRutinController;
+use App\Http\Controllers\ReportLaporanPekerjaanSwakelolaController;
 use App\Http\Controllers\ReportTanggapDaruratBencanaController;
 use App\Http\Controllers\TanggapDaruratBencanaController;
 use App\Http\Controllers\UserController;
@@ -55,6 +56,10 @@ Route::middleware('auth')->group(function() {
         Route::get('data-saluran', [ReportDataSaluranController::class, 'index'])->name('report.data-saluran.index');
         Route::get('data-saluran/export', [ReportDataSaluranController::class, 'export'])->name('report.data-saluran.export');
         Route::get('data-saluran-data', [ReportDataSaluranController::class, 'data'])->name('report.data-saluran.data');
+
+        Route::get('laporan-pekerjaan-swakelola', [ReportLaporanPekerjaanSwakelolaController::class, 'index'])->name('report.laporan-pekerjaan-swakelola.index');
+        Route::get('laporan-pekerjaan-swakelola/export', [ReportLaporanPekerjaanSwakelolaController::class, 'export'])->name('report.laporan-pekerjaan-swakelola.export');
+        Route::get('laporan-pekerjaan-swakelola-data', [ReportLaporanPekerjaanSwakelolaController::class, 'data'])->name('report.laporan-pekerjaan-swakelola.data');
     });
 
 });

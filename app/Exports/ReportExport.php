@@ -60,7 +60,7 @@ class ReportExport implements FromCollection, WithHeadings, WithDrawings, WithEv
                     '', '', '', '', '', // untuk Foto 1–4 (kosong, karena pakai Drawing)
                 ];
             });
-        } else {
+        } else if($this->section == 'Data Saluran') {
             return $this->laporans->map(function ($item) {
                 return [
                     $item->date,
@@ -69,6 +69,19 @@ class ReportExport implements FromCollection, WithHeadings, WithDrawings, WithEv
                     $item->latitude . ' - ' . $item->longitude,
                     $item->surveyor_name ? $item->surveyor_name->name : '-',
                     '', '', // untuk Foto 1–4 (kosong, karena pakai Drawing)
+                ];
+            });
+        }else{
+            return $this->laporans->map(function ($item) {
+                return [
+                    $item->date,
+                    $item->title,
+                    $item->description,
+                    $item->latitude . ' - ' . $item->longitude,
+                    '', '', // untuk Foto 1–4 (kosong, karena pakai Drawing)
+                    $item->pengawas ? $item->pengawas->name : '-',
+                    $item->korwil ? $item->korwil->name : '-',
+
                 ];
             });
         }
@@ -105,7 +118,7 @@ class ReportExport implements FromCollection, WithHeadings, WithDrawings, WithEv
                 'Foto 3',
                 'Foto 4',
             ];
-        } else {
+        } else if($this->section == 'Data Saluran') {
             return [
                 'Tanggal',
                 'Nama Saluran',
@@ -115,6 +128,18 @@ class ReportExport implements FromCollection, WithHeadings, WithDrawings, WithEv
                 'Foto Form Survey',
                 'Foto',
             ];
+        } else {
+            return [
+                'Tanggal',
+                'Judul',
+                'Deskripsi',
+                'Koordinat',
+                'Foto Pengukuran',
+                'Foto Hasil',
+                'Pengawas',
+                'Korwil',
+            ];
+
         }
     }
 
@@ -209,6 +234,46 @@ class ReportExport implements FromCollection, WithHeadings, WithDrawings, WithEv
 
                 $row++;
             }
+        } else if($this->section == 'Laporan Pekerjaan Swakelola') {
+            foreach ($this->laporans as $laporan) {
+                // Foto pengukuran (kolom E)
+                $offsetPengukuran = 0;
+                foreach ($laporan->photo_swakelola_pengukuran as $photo) {
+                    $photoPath = $photo->photo ? storage_path('app/public/' . $photo->photo) : null;
+                    if ($photoPath && file_exists($photoPath)) {
+                        $drawing = new Drawing();
+                        $drawing->setName('Pengukuran');
+                        $drawing->setDescription('Foto Pengukuran');
+                        $drawing->setPath($photoPath);
+                        $drawing->setHeight(60);
+                        $drawing->setCoordinates('E' . $row);
+                        $drawing->setOffsetY($offsetPengukuran);
+                        $drawings[] = $drawing;
+
+                        $offsetPengukuran += 65;
+                    }
+                }
+
+                // Foto hasil (kolom F) - DALAM LOOP YANG SAMA
+                $offsetHasil = 0;
+                foreach ($laporan->photo_swakelola_hasil as $photo) {
+                    $photoPath = $photo->photo ? storage_path('app/public/' . $photo->photo) : null;
+                    if ($photoPath && file_exists($photoPath)) {
+                        $drawing = new Drawing();
+                        $drawing->setName('Hasil');
+                        $drawing->setDescription('Foto Hasil');
+                        $drawing->setPath($photoPath);
+                        $drawing->setHeight(60);
+                        $drawing->setCoordinates('F' . $row); // SAMA ROW dengan pengukuran
+                        $drawing->setOffsetY($offsetHasil);
+                        $drawings[] = $drawing;
+
+                        $offsetHasil += 65;
+                    }
+                }
+
+                $row++; // Increment row setelah semua foto laporan ini selesai
+            }
         }
 
         return $drawings;
@@ -260,7 +325,7 @@ class ReportExport implements FromCollection, WithHeadings, WithDrawings, WithEv
                     }
                 },
             ];
-        } else {
+        } else if ($this->section == 'Data Saluran') {
             return [
                 AfterSheet::class => function (AfterSheet $event) {
                     $row = 2;
@@ -291,6 +356,46 @@ class ReportExport implements FromCollection, WithHeadings, WithDrawings, WithEv
                             $tinggiMinimal = 60;
                             $totalTinggi = max($tinggiMinimal, $jumlahFoto * $tinggiPerGambar);
 
+                            $event->sheet->getDelegate()->getRowDimension($row)->setRowHeight($totalTinggi);
+                        }
+
+                        $row++;
+                    }
+                },
+            ];
+        } else {
+            return [
+                AfterSheet::class => function (AfterSheet $event) {
+                    $row = 2;
+
+                    foreach ($this->laporans as $laporan) {
+                        $jumlahFoto = 0;
+
+                        // Hitung foto pengukuran
+                        if ($laporan->relationLoaded('photo_swakelola_pengukuran') || method_exists($laporan, 'photo_swakelola_pengukuran')) {
+                            foreach ($laporan->photo_swakelola_pengukuran as $photo) {
+                                $path = $photo->photo ? storage_path('app/public/' . $photo->photo) : null;
+                                if ($path && file_exists($path)) {
+                                    $jumlahFoto++;
+                                }
+                            }
+                        }
+
+                        // Hitung foto hasil - UNCOMMENT
+                        if ($laporan->relationLoaded('photo_swakelola_hasil') || method_exists($laporan, 'photo_swakelola_hasil')) {
+                            foreach ($laporan->photo_swakelola_hasil as $photo) {
+                                $path = $photo->photo ? storage_path('app/public/' . $photo->photo) : null;
+                                if ($path && file_exists($path)) {
+                                    $jumlahFoto++; // UNCOMMENTED
+                                }
+                            }
+                        }
+
+                        // Set tinggi baris berdasarkan total foto
+                        if ($jumlahFoto > 0) {
+                            $tinggiPerGambar = 65;
+                            $tinggiMinimal = 60;
+                            $totalTinggi = max($tinggiMinimal, $jumlahFoto * $tinggiPerGambar);
                             $event->sheet->getDelegate()->getRowDimension($row)->setRowHeight($totalTinggi);
                         }
 

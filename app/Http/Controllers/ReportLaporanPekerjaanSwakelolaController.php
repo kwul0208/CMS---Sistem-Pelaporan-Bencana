@@ -8,15 +8,15 @@ use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Yajra\DataTables\Facades\DataTables;
 
-class ReportDataSaluranController extends Controller
+class ReportLaporanPekerjaanSwakelolaController extends Controller
 {
     public function index() {
-        return view('pages.report.data_saluran.index');
+        return view('pages.report.laporan_pekerjaan_swakelola.index');
     }
 
     public function data(Request $request) {
         $query = Laporan::with('surveyor_name')
-            ->where('section', 'Data Saluran')
+            ->where('section', 'Laporan Pekerjaan Swakelola')
             ->orderBy('date', 'desc');
 
         // Default: 1 bulan terakhir
@@ -35,12 +35,17 @@ class ReportDataSaluranController extends Controller
             ->addColumn('description', function ($row) {
                 return $row->description;
             })
-            ->addColumn('photo_1', function ($row) {
-                return $row->photo_1         ? '<a href="' . asset('storage/' . $row->photo_1) . '" target="_blank">'. asset('storage/' . $row->photo_1) .'</a>'         : '-';
-            })
-            ->addColumn('photo', function ($row) {
+            ->addColumn('photo_pengukuran', function ($row) {
                 $html = '<ul>';
-                foreach ($row->photo_saluran as $photo) {
+                foreach ($row->photo_swakelola_pengukuran as $photo) {
+                    $html .= '<li><a href="' . asset('storage/' . $photo->photo) . '" target="_blank">'. asset('storage/' . $photo->photo) .'</a></li>';
+                }
+                $html .= '</ul>';
+                return $html;
+            })
+            ->addColumn('photo_hasil', function ($row) {
+                $html = '<ul>';
+                foreach ($row->photo_swakelola_hasil as $photo) {
                     $html .= '<li><a href="' . asset('storage/' . $photo->photo) . '" target="_blank">'. asset('storage/' . $photo->photo) .'</a></li>';
                 }
                 $html .= '</ul>';
@@ -55,7 +60,7 @@ class ReportDataSaluranController extends Controller
             ->addColumn('surveyor', function ($row) {
                 return $row->surveyor_name ? $row->surveyor_name->name : '-';
             })
-            ->rawColumns(['photo_1', 'photo'])
+            ->rawColumns(['photo_pengukuran', 'photo_hasil'])
             ->addIndexColumn() 
 
             ->make(true);
@@ -66,7 +71,7 @@ class ReportDataSaluranController extends Controller
         $startDate = $request->start_date ?? now()->subMonth()->toDateString();
         $endDate = $request->end_date ?? now()->toDateString();
 
-        return Excel::download(new ReportExport('Data Saluran',  $startDate, $endDate), 'report_data_saluran_' . now()->format('Y-m-d') . '.xlsx');
+        return Excel::download(new ReportExport('Laporan Pekerjaan Swakelola',  $startDate, $endDate), 'report_laporan_pekerjaan_swakelola_' . now()->format('Y-m-d') . '.xlsx');
     }
 
 }
