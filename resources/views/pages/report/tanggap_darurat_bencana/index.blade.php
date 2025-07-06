@@ -4,9 +4,20 @@
 
     <div class="container-fluid">
         <div style="float:right;" class="mb-5">
-            <a href="{{ route('report.tanggap-darurat-bencana.export') }}" class="btn btn-primary">Export Excel dengan File</a>
+        <a href="#" id="export-btn" class="btn btn-primary">Export Excel dengan Filter</a>
         </div>
         <table id="tanggap_darurat_bencana-table" class="table table-bordered table-striped" style="width:100%;overflow-x:auto;">
+            <div class="row mb-3">
+                <div class="col-md-3">
+                    <input type="date" id="start_date" class="form-control" value="{{ \Carbon\Carbon::now()->subMonth()->toDateString() }}">
+                </div>
+                <div class="col-md-3">
+                    <input type="date" id="end_date" class="form-control" value="{{ \Carbon\Carbon::now()->toDateString() }}">
+                </div>
+                <div class="col-md-3">
+                    <button id="filter" class="btn btn-primary">Filter</button>
+                </div>
+            </div>
             <thead>
                 <tr>
                     <th>No</th>
@@ -50,7 +61,13 @@
             $('#tanggap_darurat_bencana-table').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: '{{ route('report.tanggap-darurat-bencana.data') }}',
+                ajax: {
+                    url: '{{ route('report.tanggap-darurat-bencana.data') }}',
+                    data: function (d) {
+                        d.start_date = $('#start_date').val();
+                        d.end_date = $('#end_date').val();
+                    }
+                },
                 scrollX: true,
                 dom: 'Bfrtip',
                 buttons: [
@@ -77,6 +94,20 @@
                     { data: 'surveyor' }
                 ]
             });
+
+            $('#filter').on('click', function () {
+                $('#tanggap_darurat_bencana-table').DataTable().ajax.reload();
+            });
+
+            $('#export-btn').on('click', function(e) {
+                e.preventDefault();
+                let start = $('#start_date').val();
+                let end = $('#end_date').val();
+                let url = '{{ route("report.tanggap-darurat-bencana.export") }}' + '?start_date=' + start + '&end_date=' + end;
+                window.location.href = url;
+            });
+
+
         });
 
     </script>

@@ -14,8 +14,18 @@ class ReportDataSaluranController extends Controller
         return view('pages.report.data_saluran.index');
     }
 
-    public function data() {
-        return DataTables::of(Laporan::with('surveyor_name')->where('section', 'Data Saluran')->orderBy('date', 'desc')->get())
+    public function data(Request $request) {
+        $query = Laporan::with('surveyor_name')
+            ->where('section', 'Data Saluran')
+            ->orderBy('date', 'desc');
+
+        // Default: 1 bulan terakhir
+        $startDate = $request->start_date ?? now()->subMonth()->toDateString();
+        $endDate = $request->end_date ?? now()->toDateString();
+
+        $query->whereBetween('date', [$startDate, $endDate]);
+
+        return DataTables::of($query->get())            
             ->addColumn('date', function ($row) {
                 return $row->date;
             })
@@ -51,9 +61,12 @@ class ReportDataSaluranController extends Controller
             ->make(true);
     }
     
-    public function export()
+    public function export(Request $request)
     {
-        return Excel::download(new ReportExport('Data Saluran'), 'report_data_saluran_' . date('Y-m-d') . '.xlsx');
+        $startDate = $request->start_date ?? now()->subMonth()->toDateString();
+        $endDate = $request->end_date ?? now()->toDateString();
+
+        return Excel::download(new ReportExport('Data Saluran',  $startDate, $endDate), 'report_tanggap_darurat_bencana_' . now()->format('Y-m-d') . '.xlsx');
     }
 
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Exports\ReportExport;
 use App\Models\Laporan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Maatwebsite\Excel\Facades\Excel;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -14,8 +15,17 @@ class ReportLaporanPekerjaanRutinController extends Controller
         return view('pages.report.laporan_pekerjaan_rutin.index');
     }
 
-    public function data() {
-        return DataTables::of(Laporan::with('surveyor_name')->where('section', 'Laporan Pekerjaan Rutin')->orderBy('date', 'desc')->get())
+    public function data(Request $request) {
+        $query = Laporan::with('surveyor_name')
+            ->where('section', 'Laporan Pekerjaan Rutin')
+            ->orderBy('date', 'desc');
+
+        // Default: 1 bulan terakhir
+        $startDate = $request->start_date ?? now()->subMonth()->toDateString();
+        $endDate = $request->end_date ?? now()->toDateString();
+        $query->whereBetween('date', [$startDate, $endDate]);
+
+        return DataTables::of($query->get())
             ->addColumn('date', function ($row) {
                 return $row->date;
             })
@@ -52,8 +62,11 @@ class ReportLaporanPekerjaanRutinController extends Controller
             ->make(true);
     }
 
-    public function export()
+    public function export(Request $request)
     {
-        return Excel::download(new ReportExport('Laporan Pekerjaan Rutin'), 'report_laporan_pekerjaan_rutin_' . date('Y-m-d') . '.xlsx');
+        $startDate = $request->start_date ?? now()->subMonth()->toDateString();
+        $endDate = $request->end_date ?? now()->toDateString();
+
+        return Excel::download(new ReportExport('Laporan Pekerjaan Rutin', $startDate, $endDate), 'report_laporan_pekerjaan_rutin_' . now()->format('Y-m-d') . '.xlsx');
     }
 }

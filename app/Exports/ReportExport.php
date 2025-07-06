@@ -13,13 +13,17 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 class ReportExport implements FromCollection, WithHeadings, WithDrawings, WithEvents
 {
     protected $laporans;
-    protected $section;
+    protected $section, $startDate, $endDate;
+    
 
-    public function __construct($section = null)
+    public function __construct($section = null, $startDate, $endDate)
     {
         $this->section = $section;
+        $this->startDate = $startDate;
+        $this->endDate = $endDate;
 
         $query = Laporan::with('surveyor_name')
+            ->whereBetween('date', [$startDate, $endDate])
             ->orderByDesc('date');
 
         if ($section) {
