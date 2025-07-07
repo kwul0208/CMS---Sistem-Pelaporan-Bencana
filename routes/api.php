@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthApiController;
 use App\Http\Controllers\DataSaluranController;
 use App\Http\Controllers\LaporanPekerjaanRutinController;
 use App\Http\Controllers\PositionController;
+use App\Http\Controllers\SosmedController;
 use App\Http\Controllers\TanggapDaruratBencanaController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
@@ -53,6 +54,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('data-saluran/store', [DataSaluranController::class, 'store']);
     Route::post('data-saluran/update', [DataSaluranController::class, 'update']);
     Route::delete('data-saluran/delete/{id}', [DataSaluranController::class, 'delete']);
+    
+    // SOSMED
+    Route::get('sosmed', [SosmedController::class, 'getSosmed']);
+    
 });
 
 Route::get('/testing', [TanggapDaruratBencanaController::class, 'testing']);

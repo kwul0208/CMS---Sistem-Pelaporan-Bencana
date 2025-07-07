@@ -67,6 +67,11 @@
                         <i class="fas fa-fw fa-sitemap"></i>
                         <span>Data Position</span></a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('sosmed.index') }}">
+                        <i class="fas fa-fw fa-settings"></i>
+                        <span>Manage Sosmed</span></a>
+                </li>
             @endif
             <div class="sidebar-heading">
                 Report

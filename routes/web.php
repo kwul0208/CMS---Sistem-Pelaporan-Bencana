@@ -7,6 +7,7 @@ use App\Http\Controllers\PositionController;
 use App\Http\Controllers\ReportDataSaluranController;
 use App\Http\Controllers\ReportLaporanPekerjaanRutinController;
 use App\Http\Controllers\ReportTanggapDaruratBencanaController;
+use App\Http\Controllers\SosmedController;
 use App\Http\Controllers\TanggapDaruratBencanaController;
 use App\Http\Controllers\UserController;
 
@@ -42,6 +43,11 @@ Route::middleware('auth')->group(function() {
 
     Route::resource('position', PositionController::class);
     Route::get('position-data', [PositionController::class, 'data'])->name('position.data');
+
+    Route::resource('sosmed', SosmedController::class);
+    Route::get('sosmed-data', function(){return 'ok';})->name('sosmed.data');
+
+    // [SosmedController::class, 'data']
 
     Route::prefix('report')->group(function() {
         Route::get('tanggap-darurat-bencana', [ReportTanggapDaruratBencanaController::class, 'index'])->name('report.tanggap-darurat-bencana.index');
