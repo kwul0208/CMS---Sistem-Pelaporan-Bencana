@@ -5,6 +5,7 @@ use App\Http\Controllers\DataSaluranController;
 use App\Http\Controllers\LaporanPekerjaanRutinController;
 use App\Http\Controllers\LaporanPekerjaanSwakelolaController;
 use App\Http\Controllers\PositionController;
+use App\Http\Controllers\SosmedController;
 use App\Http\Controllers\TanggapDaruratBencanaController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
@@ -60,6 +61,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('laporan-pekerjaan-swakelola/store', [LaporanPekerjaanSwakelolaController::class, 'store']);
     Route::post('laporan-pekerjaan-swakelola/update', [LaporanPekerjaanSwakelolaController::class, 'update']);
     Route::delete('laporan-pekerjaan-swakelola/delete/{id}', [LaporanPekerjaanSwakelolaController::class, 'delete']);
+    
+    // SOSMED
+    Route::get('sosmed', [SosmedController::class, 'getSosmed']);
+    
 });
 
 Route::get('/testing', [TanggapDaruratBencanaController::class, 'testing']);
