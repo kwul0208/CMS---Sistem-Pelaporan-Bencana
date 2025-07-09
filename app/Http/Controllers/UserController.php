@@ -53,8 +53,11 @@ class UserController extends Controller
             'password' => 'nullable',
             'role' => 'required'
         ]);
+
         if ($request->password) {
             $data['password'] = bcrypt($request->password);
+        }else{
+            unset($data['password']);
         }
         $user->update($data);
         return redirect()->route('users.index')->with('success', 'User berhasil diupdate.');
@@ -102,5 +105,10 @@ class UserController extends Controller
             'message' => 'Data berhasil diupdate.',
             'data' => $user
         ]);
+    }
+
+    public function getUserAPI(){
+        $data = User::all();
+        return $data;
     }
 }

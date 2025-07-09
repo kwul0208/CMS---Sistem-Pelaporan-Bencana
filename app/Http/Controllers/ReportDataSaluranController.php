@@ -20,10 +20,10 @@ class ReportDataSaluranController extends Controller
             ->orderBy('date', 'desc');
 
         // Default: 1 bulan terakhir
-        $startDate = $request->start_date ?? now()->subMonth()->toDateString();
-        $endDate = $request->end_date ?? now()->toDateString();
+        // $startDate = $request->start_date ?? now()->subMonth()->toDateString();
+        // $endDate = $request->end_date ?? now()->toDateString();
 
-        $query->whereBetween('date', [$startDate, $endDate]);
+        // $query->whereBetween('date', [$startDate, $endDate]);
 
         return DataTables::of($query->get())            
             ->addColumn('date', function ($row) {

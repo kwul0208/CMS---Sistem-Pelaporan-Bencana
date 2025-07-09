@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Str;
 
 use App\Models\Laporan;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
@@ -70,7 +71,7 @@ class LaporanPekerjaanRutinController extends Controller
                 }
             }
             $validated['section'] = 'Laporan Pekerjaan Rutin';
-
+            $validated['date'] = Carbon::parse($validated['date'])->format('Y-m-d');
             $data = Laporan::create($validated);
 
             // ===== PUSH NOTIFICATION =====
@@ -165,7 +166,7 @@ class LaporanPekerjaanRutinController extends Controller
                 $validated[$field] = 'uploads/laporan/' . $filename;
             }
         }
-
+        $validated['date'] = Carbon::parse($validated['date'])->format('Y-m-d');
         $laporan->update($validated);
 
         return response()->json([

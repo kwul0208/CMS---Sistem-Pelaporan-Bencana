@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Laporan;
 use App\Models\PhotoSwakelola;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -16,7 +17,7 @@ class LaporanPekerjaanSwakelolaController extends Controller
 {
     public function index(Request $request) {
         $query = Laporan::select('laporan.*', 'users.name as surveyor')
-            ->with( 'photo_swakelola_pengukuran', 'photo_swakelola_hasil')
+            ->with( 'photo_swakelola_pengukuran', 'photo_swakelola_hasil', 'pengawas', 'korwil')
             ->leftJoin('users', 'laporan.surveyor', '=', 'users.id')
             ->where('section', 'Laporan Pekerjaan Swakelola')
             ->orderByDesc('laporan.created_at');
@@ -45,8 +46,10 @@ class LaporanPekerjaanSwakelolaController extends Controller
         $validator = Validator::make($request->all(), [
             'title' => 'required',
             'description' => 'required',
-            'photos_pengukuran.*' => 'required|image', // array photo tambahan (boleh kosong)
-            'photos_hasil.*' => 'required|image', // array photo tambahan (boleh kosong)
+            'photos_pengukuran' => 'nullable|array',
+            'photos_pengukuran.*' => 'image', // array photo wajib
+            'photos_hasil' => 'nullable|array',
+            'photos_hasil.*' => 'image', // array photo wajib
             'latitude' => 'required',
             'longitude' => 'required',
             'date' => 'required|date',
@@ -90,6 +93,7 @@ class LaporanPekerjaanSwakelolaController extends Controller
             unset($validated['photos_pengukuran']);
             unset($validated['photos_hasil']);
             $validated['surveyor'] = auth()->user()->id;
+            $validated['date'] = Carbon::parse($validated['date'])->format('Y-m-d');
             $data = Laporan::create($validated);
 
             foreach ($related_photos_pengukuran as $path) {
@@ -156,7 +160,7 @@ class LaporanPekerjaanSwakelolaController extends Controller
         return response()->json([
             'status' => 'success',
             'message' => 'Data laporan berhasil diambil.',
-            'data' => Laporan::with('photo_swakelola_pengukuran', 'photo_swakelola_hasil')->where('section', 'Laporan Pekerjaan Swakelola')->where('id', $id)->first()
+            'data' => Laporan::with('photo_swakelola_pengukuran', 'photo_swakelola_hasil', 'pengawas', 'korwil')->where('section', 'Laporan Pekerjaan Swakelola')->where('id', $id)->first()
         ]);
     }
 
@@ -189,6 +193,7 @@ class LaporanPekerjaanSwakelolaController extends Controller
         DB::beginTransaction();
         try {
             $id = $request->input('id');
+            Log::info($id);
             $laporan = Laporan::findOrFail($id);
 
             //  Hapus photo saluran yang tidak dipertahankan
@@ -246,6 +251,7 @@ class LaporanPekerjaanSwakelolaController extends Controller
             unset($validated['photos_hasil']);
             unset($validated['existing_photo_ids_pengukuran']);
             unset($validated['existing_photo_ids_hasil']);
+            $validated['date'] = Carbon::parse($validated['date'])->format('Y-m-d');
             $laporan->update($validated);
 
             DB::commit();

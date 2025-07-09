@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Laporan;
 use App\Models\PhotoSaluran;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -85,6 +86,7 @@ class DataSaluranController extends Controller
 
             $validated['section'] = 'Data Saluran';
             unset($validated['photos']);
+            $validated['date'] = Carbon::parse($validated['date'])->format('Y-m-d');
             $data = Laporan::create($validated);
 
             // Simpan ke tabel photo_saluran
@@ -218,6 +220,7 @@ class DataSaluranController extends Controller
             $validated['section'] = 'Data Saluran';
             unset($validated['photos']);
             unset($validated['existing_photo_ids']);
+            $validated['date'] = Carbon::parse($validated['date'])->format('Y-m-d');
             $laporan->update($validated);
 
             DB::commit();

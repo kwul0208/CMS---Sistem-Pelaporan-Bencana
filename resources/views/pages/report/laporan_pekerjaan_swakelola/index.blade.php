@@ -5,7 +5,6 @@
 
     <div class="container-fluid">
         <div style="float:right;" class="mb-5">
-            <a href="#" id="export-btn" class="btn btn-primary">Export Excel dengan Filter</a>
         </div>
         <table id="laporan_pekerjaan_swakelola-table" class="table table-bordered table-striped" style="width:100%;overflow-x:auto;">
             <div class="row mb-3">
@@ -16,7 +15,9 @@
                     <input type="date" id="end_date" class="form-control" value="{{ \Carbon\Carbon::now()->toDateString() }}">
                 </div>
                 <div class="col-md-3">
-                    <button id="filter" class="btn btn-primary">Filter</button>
+                    {{-- <button id="filter" class="btn btn-primary">Filter</button> --}}
+                    <a href="#" id="export-btn" class="btn btn-primary">Export Excel dengan Filter</a>
+
                 </div>
             </div>
             <thead>

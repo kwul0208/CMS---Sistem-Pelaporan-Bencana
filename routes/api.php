@@ -23,6 +23,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post('/login', [AuthApiController::class, 'login']);
+Route::get('/getUserAPI', [UserController::class, 'getUserAPI']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthApiController::class, 'logout']);

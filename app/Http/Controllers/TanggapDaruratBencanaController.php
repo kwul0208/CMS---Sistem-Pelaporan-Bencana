@@ -6,6 +6,7 @@ use App\Exports\ReportExport;
 use App\Models\Laporan;
 use Illuminate\Http\Request;
 use App\Models\Position;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -78,6 +79,7 @@ class TanggapDaruratBencanaController extends Controller
                 }
             }
             $validated['section'] = 'Tanggap Darurat Bencana';
+            $validated['date'] = Carbon::parse($validated['date'])->format('Y-m-d');
             $data = Laporan::create($validated);
 
             // ===== PUSH NOTIFICATION =====
@@ -176,7 +178,7 @@ class TanggapDaruratBencanaController extends Controller
                 $validated[$field] = 'uploads/laporan/' . $filename;
             }
         }
-
+        $validated['date'] = Carbon::parse($validated['date'])->format('Y-m-d');
         $laporan->update($validated);
 
         return response()->json([
