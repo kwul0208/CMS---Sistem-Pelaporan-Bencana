@@ -25,6 +25,7 @@
                     <th>No</th>
                     <th>Tanggal</th>
                     <th>Nama Saluran</th>
+                    <th>Periode</th>
                     <th>Deskripsi</th>
                     <th>Foto Pengukuran</th>
                     <th>Foto Hasil</th>
@@ -78,6 +79,7 @@
                     { data: 'DT_RowIndex', name: 'DT_RowIndex' },
                     { data: 'date' },
                     { data: 'title' },
+                    { data: 'period' },
                     { data: 'description' },
                     { data: 'photo_pengukuran' },
                     { data: 'photo_hasil' },

@@ -55,6 +55,7 @@ class LaporanPekerjaanSwakelolaController extends Controller
             'date' => 'required|date',
             'pengawas_id' => 'required',
             'korwil_id' => 'required',
+            'period' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -178,7 +179,7 @@ class LaporanPekerjaanSwakelolaController extends Controller
             'date' => 'required|date',
             'pengawas_id' => 'required',
             'korwil_id' => 'required',
-
+            'period' => 'required',
         ]);
 
         if ($validator->fails()) {

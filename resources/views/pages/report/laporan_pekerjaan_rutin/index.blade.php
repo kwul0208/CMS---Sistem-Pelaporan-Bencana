@@ -23,6 +23,7 @@
                     <th>No</th>
                     <th>Tanggal</th>
                     <th>Nama Saluran</th>
+                    <th>Periode</th>
                     <th>Deskripsi</th>
                     <th>Foto 1</th>
                     <th>Foto 2</th>
@@ -77,6 +78,7 @@
                     { data: 'DT_RowIndex', name: 'DT_RowIndex' },
                     { data: 'date' },
                     { data: 'title' },
+                    { data: 'period' },
                     { data: 'description' },
                     { data: 'photo_1' },
                     { data: 'photo_2' },

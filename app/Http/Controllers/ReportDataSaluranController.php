@@ -36,12 +36,12 @@ class ReportDataSaluranController extends Controller
                 return $row->description;
             })
             ->addColumn('photo_1', function ($row) {
-                return $row->photo_1         ? '<a href="' . asset('storage/' . $row->photo_1) . '" target="_blank">'. asset('storage/' . $row->photo_1) .'</a>'         : '-';
+                return $row->photo_1         ? '<a href="' . asset('storage/' . $row->photo_1) . '" target="_blank"><img src="' . asset('storage/' . $row->photo_1) . '" width="50" height="50"></a>'         : '-';
             })
             ->addColumn('photo', function ($row) {
                 $html = '<ul>';
                 foreach ($row->photo_saluran as $photo) {
-                    $html .= '<li><a href="' . asset('storage/' . $photo->photo) . '" target="_blank">'. asset('storage/' . $photo->photo) .'</a></li>';
+                    $html .= '<li><a href="' . asset('storage/' . $photo->photo) . '" target="_blank" onclick="window.open(this.href, \'_blank\'); return false;"><img src="' . asset('storage/' . $photo->photo) . '" width="50" height="50"></a></li>';
                 }
                 $html .= '</ul>';
                 return $html;

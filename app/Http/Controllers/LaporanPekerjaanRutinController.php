@@ -49,6 +49,7 @@ class LaporanPekerjaanRutinController extends Controller
             'longitude' => 'required',
             'surveyor' => 'required',
             'date' => 'required|date',
+            'period' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -137,6 +138,8 @@ class LaporanPekerjaanRutinController extends Controller
             'longitude' => 'required',
             'surveyor' => 'required',
             'date' => 'required|date',
+            'period' => 'required',
+
         ]);
 
         if ($validator->fails()) {

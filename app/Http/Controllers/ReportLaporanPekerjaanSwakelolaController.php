@@ -32,13 +32,16 @@ class ReportLaporanPekerjaanSwakelolaController extends Controller
             ->addColumn('title', function ($row) {
                 return $row->title;
             })
+            ->addColumn('period', function ($row) {
+                return $row->period;
+            })
             ->addColumn('description', function ($row) {
                 return $row->description;
             })
             ->addColumn('photo_pengukuran', function ($row) {
                 $html = '<ul>';
                 foreach ($row->photo_swakelola_pengukuran as $photo) {
-                    $html .= '<li><a href="' . asset('storage/' . $photo->photo) . '" target="_blank">'. asset('storage/' . $photo->photo) .'</a></li>';
+                    $html .= '<li><a href="' . asset('storage/' . $photo->photo) . '" target="_blank" onclick="window.open(this.href, \'_blank\'); return false;"><img src="' . asset('storage/' . $photo->photo) . '" width="50" height="50"></a></li>';
                 }
                 $html .= '</ul>';
                 return $html;
@@ -46,7 +49,7 @@ class ReportLaporanPekerjaanSwakelolaController extends Controller
             ->addColumn('photo_hasil', function ($row) {
                 $html = '<ul>';
                 foreach ($row->photo_swakelola_hasil as $photo) {
-                    $html .= '<li><a href="' . asset('storage/' . $photo->photo) . '" target="_blank">'. asset('storage/' . $photo->photo) .'</a></li>';
+                    $html .= '<li><a href="' . asset('storage/' . $photo->photo) . '" target="_blank" onclick="window.open(this.href, \'_blank\'); return false;"><img src="' . asset('storage/' . $photo->photo) . '" width="50" height="50"></a></li>';
                 }
                 $html .= '</ul>';
                 return $html;

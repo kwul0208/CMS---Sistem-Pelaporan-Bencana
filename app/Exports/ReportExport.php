@@ -54,6 +54,7 @@ class ReportExport implements FromCollection, WithHeadings, WithDrawings, WithEv
                 return [
                     $item->date,
                     $item->title,
+                    $item->period,
                     $item->description,
                     $item->latitude . ' - ' . $item->longitude,
                     $item->surveyor_name ? $item->surveyor_name->name : '-',
@@ -76,6 +77,7 @@ class ReportExport implements FromCollection, WithHeadings, WithDrawings, WithEv
                 return [
                     $item->date,
                     $item->title,
+                    $item->period,
                     $item->description,
                     $item->latitude . ' - ' . $item->longitude,
                     '', '', // untuk Foto 1–4 (kosong, karena pakai Drawing)
@@ -110,6 +112,7 @@ class ReportExport implements FromCollection, WithHeadings, WithDrawings, WithEv
             return [
                 'Tanggal',
                 'Judul',
+                'Periode',
                 'Deskripsi',
                 'Koordinat',
                 'Surveyor',
@@ -132,6 +135,7 @@ class ReportExport implements FromCollection, WithHeadings, WithDrawings, WithEv
             return [
                 'Tanggal',
                 'Judul',
+                'Periode',
                 'Deskripsi',
                 'Koordinat',
                 'Foto Pengukuran',
@@ -177,10 +181,10 @@ class ReportExport implements FromCollection, WithHeadings, WithDrawings, WithEv
         } else if ($this->section == 'Laporan Pekerjaan Rutin') {
             foreach ($this->laporans as $laporan) {
                 $fotoPaths = [
-                    'F' => $laporan->photo_1,
-                    'G' => $laporan->photo_2,
-                    'H' => $laporan->photo_3,
-                    'I' => $laporan->photo_4,
+                    'G' => $laporan->photo_1,
+                    'H' => $laporan->photo_2,
+                    'I' => $laporan->photo_3,
+                    'J' => $laporan->photo_4,
                 ];
 
                 foreach ($fotoPaths as $col => $path) {
@@ -246,7 +250,7 @@ class ReportExport implements FromCollection, WithHeadings, WithDrawings, WithEv
                         $drawing->setDescription('Foto Pengukuran');
                         $drawing->setPath($photoPath);
                         $drawing->setHeight(60);
-                        $drawing->setCoordinates('E' . $row);
+                        $drawing->setCoordinates('F' . $row);
                         $drawing->setOffsetY($offsetPengukuran);
                         $drawings[] = $drawing;
 
@@ -264,7 +268,7 @@ class ReportExport implements FromCollection, WithHeadings, WithDrawings, WithEv
                         $drawing->setDescription('Foto Hasil');
                         $drawing->setPath($photoPath);
                         $drawing->setHeight(60);
-                        $drawing->setCoordinates('F' . $row); // SAMA ROW dengan pengukuran
+                        $drawing->setCoordinates('G' . $row); // SAMA ROW dengan pengukuran
                         $drawing->setOffsetY($offsetHasil);
                         $drawings[] = $drawing;
 

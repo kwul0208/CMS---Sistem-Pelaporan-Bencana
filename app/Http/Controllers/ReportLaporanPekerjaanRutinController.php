@@ -32,36 +32,37 @@ class ReportLaporanPekerjaanRutinController extends Controller
             ->addColumn('title', function ($row) {
                 return $row->title;
             })
+            ->addColumn('period', function ($row) {
+                return $row->period;
+            })
             ->addColumn('description', function ($row) {
                 return $row->description;
             })
             ->addColumn('photo_1', function ($row) {
-                return $row->photo_1         ? '<a href="' . asset('storage/' . $row->photo_1) . '" target="_blank">'. asset('storage/' . $row->photo_1) .'</a>'         : '-';
+                return $row->photo_1 ? '<a href="' . asset('storage/' . $row->photo_1) . '" target="_blank"><img src="' . asset('storage/' . $row->photo_1) . '" width="50" height="50"></a>' : '-';
             })
             ->addColumn('photo_2', function ($row) {
-                return $row->photo_2         ? '<a href="' . asset('storage/' . $row->photo_2) . '" target="_blank">'. asset('storage/' . $row->photo_2) .'</a>'         : '-';
+                return $row->photo_2 ? '<a href="' . asset('storage/' . $row->photo_2) . '" target="_blank"><img src="' . asset('storage/' . $row->photo_2) . '" width="50" height="50"></a>' : '-';
             })
             ->addColumn('photo_3', function ($row) {
-                return $row->photo_3         ? '<a href="' . asset('storage/' . $row->photo_3) . '" target="_blank">'. asset('storage/' . $row->photo_3) .'</a>'         : '-';
+                return $row->photo_3 ? '<a href="' . asset('storage/' . $row->photo_3) . '" target="_blank"><img src="' . asset('storage/' . $row->photo_3) . '" width="50" height="50"></a>' : '-';
             })
             ->addColumn('photo_4', function ($row) {
-                return $row->photo_4         ? '<a href="' . asset('storage/' . $row->photo_4) . '" target="_blank">'. asset('storage/' . $row->photo_4) .'</a>'         : '-';
+                return $row->photo_4 ? '<a href="' . asset('storage/' . $row->photo_4) . '" target="_blank"><img src="' . asset('storage/' . $row->photo_4) . '" width="50" height="50"></a>' : '-';
             })
             ->addColumn('address', function ($row) {
                 return $row->address;
             })
             ->addColumn('location', function ($row) {
-                return $row->latitude.' - '. $row->longitude;
+                return $row->latitude . ' - ' . $row->longitude;
             })
             ->addColumn('surveyor', function ($row) {
                 return $row->surveyor_name ? $row->surveyor_name->name : '-';
             })
             ->rawColumns(['photo_1', 'photo_2', 'photo_3', 'photo_4'])
-            ->addIndexColumn() 
-
+            ->addIndexColumn()
             ->make(true);
     }
-
     public function export(Request $request)
     {
         $startDate = $request->start_date ?? now()->subMonth()->toDateString();
