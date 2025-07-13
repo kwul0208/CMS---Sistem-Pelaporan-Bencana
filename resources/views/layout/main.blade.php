@@ -69,7 +69,7 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('sosmed.index') }}">
-                        <i class="fas fa-fw fa-settings"></i>
+                        <i class="fas fa-fw fa-sitemap"></i>
                         <span>Manage Sosmed</span></a>
                 </li>
             @endif
