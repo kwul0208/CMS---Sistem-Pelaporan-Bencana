@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -41,6 +42,12 @@ class Laporan extends Model
     {
         return $this->hasMany(PhotoSwakelola::class, 'laporan_id', 'id')
                     ->where('type', 'Hasil');
+    }
+
+    public function getCreatedAtAttribute($value)
+    {
+        return Carbon::parse($value)->timezone('Asia/Jakarta')->toDateTimeString();
+        // atau ->toIso8601String() jika ingin hasil ISO
     }
 }
 

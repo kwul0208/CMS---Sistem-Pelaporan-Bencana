@@ -27,6 +27,13 @@ use App\Http\Controllers\Web\TanggapDaruratBencanaWebController;
 |
 */
 
+Route::get('/privacy-policy', function () {
+    return view('landing_page.index');
+});
+Route::get('/company-profile', function () {
+    return view('company_profile.index');
+});
+
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
