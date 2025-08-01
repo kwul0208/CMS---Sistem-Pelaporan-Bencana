@@ -10,7 +10,8 @@ use Yajra\DataTables\Facades\DataTables;
 class UserController extends Controller
 {
     public function index() {
-        return view('pages.users.index');
+        $title = 'Users';
+        return view('pages.users.index', compact('title'));
     }
 
     public function data() {

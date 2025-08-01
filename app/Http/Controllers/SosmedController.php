@@ -9,8 +9,9 @@ use Yajra\DataTables\Facades\DataTables;
 class SosmedController extends Controller
 {
     public function index() {
+        $title = 'Sosmed';
         $data = Sosmed::all();
-        return view('pages.sosmed.index')->with('data', $data);
+        return view('pages.sosmed.index')->with('data', $data)->with('title', $title);
     }
 
 

@@ -12,7 +12,8 @@ use Yajra\DataTables\Facades\DataTables;
 class ReportLaporanPekerjaanRutinController extends Controller
 {
     public function index() {
-        return view('pages.report.laporan_pekerjaan_rutin.index');
+        $title = 'Report Laporan Pekerjaan Rutin';
+        return view('pages.report.laporan_pekerjaan_rutin.index', compact('title'));
     }
 
     public function data(Request $request) {

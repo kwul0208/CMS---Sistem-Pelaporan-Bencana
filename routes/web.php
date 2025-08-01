@@ -11,6 +11,10 @@ use App\Http\Controllers\ReportTanggapDaruratBencanaController;
 use App\Http\Controllers\SosmedController;
 use App\Http\Controllers\TanggapDaruratBencanaController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\Web\DataSaluranWebController;
+use App\Http\Controllers\Web\LaporanPekerjaanRutinWebController;
+use App\Http\Controllers\Web\LaporanSwakelolaWebController;
+use App\Http\Controllers\Web\TanggapDaruratBencanaWebController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,6 +42,22 @@ Route::get('/optimize-clear', function() {
 
 Route::middleware('auth')->group(function() {
     Route::get('/', [DashboardController::class, 'index'])->name('home');
+
+    // Tanggap Darurat Bencana
+    Route::resource('tanggap_darurat_bencana', TanggapDaruratBencanaWebController::class);
+    Route::get('tanggap_darurat_bencana-data', [TanggapDaruratBencanaWebController::class, 'data'])->name('tanggap_darurat_bencana-data');
+
+    Route::resource('laporan_pekerjaan_rutin', LaporanPekerjaanRutinWebController::class);
+    Route::get('laporan_pekerjaan_rutin-data', [LaporanPekerjaanRutinWebController::class, 'data'])->name('laporan_pekerjaan_rutin-data');
+
+    Route::resource('laporan_swakelola', LaporanSwakelolaWebController::class);
+    Route::get('laporan_swakelola-data', [LaporanSwakelolaWebController::class, 'data'])->name('laporan_swakelola-data');
+
+    Route::resource('data_saluran', DataSaluranWebController::class);
+    Route::get('data_saluran-data', [DataSaluranWebController::class, 'data'])->name('data_saluran-data');
+
+
+    // Route::delete('tanggap-darurat-bencana/delete/{id}', [TanggapDaruratBencanaWebController::class, 'delete'])->name('tanggap_darurat_bencana.index');
 
     Route::resource('users', UserController::class);
     Route::get('users-data', [UserController::class, 'data'])->name('users.data');

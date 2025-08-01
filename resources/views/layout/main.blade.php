@@ -74,6 +74,29 @@
                 </li>
             @endif
             <div class="sidebar-heading">
+                Laporan
+            </div>
+            <li class="nav-item {{ request()->routeIs('tanggap_darurat_bencana.index') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('tanggap_darurat_bencana.index') }}">
+                    <i class="fas fa-fw fa-file-pdf"></i>
+                    <span>Tanggap Darurat Bencana</span></a>
+            </li>
+            <li class="nav-item {{ request()->routeIs('laporan_pekerjaan_rutin.index') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('laporan_pekerjaan_rutin.index') }}">
+                    <i class="fas fa-fw fa-file-pdf"></i>
+                    <span>Laporan Pekerjaan Rutin</span></a>
+            </li>
+            <li class="nav-item {{ request()->routeIs('laporan_swakelola.index') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('laporan_swakelola.index') }}">
+                    <i class="fas fa-fw fa-file-pdf"></i>
+                    <span>Laporan Swakelola</span></a>
+            </li>
+            <li class="nav-item {{ request()->routeIs('data_saluran.index') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('data_saluran.index') }}">
+                    <i class="fas fa-fw fa-file-pdf"></i>
+                    <span>Data Saluran</span></a>
+            </li>
+            <div class="sidebar-heading">
                 Report
             </div>
             <li class="nav-item {{ request()->routeIs('report.tanggap-darurat-bencana.index') ? 'active' : '' }}">
@@ -108,7 +131,7 @@
 
                 <!-- Topbar -->
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-
+                    {{-- <h6>{{$title}}</h6> --}}
                     <!-- Sidebar Toggle (Topbar) -->
                     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
                         <i class="fa fa-bars"></i>

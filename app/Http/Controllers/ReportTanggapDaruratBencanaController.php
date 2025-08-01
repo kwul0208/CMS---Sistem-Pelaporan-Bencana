@@ -12,7 +12,8 @@ use Yajra\DataTables\Facades\DataTables;
 class ReportTanggapDaruratBencanaController extends Controller
 {
     public function index() {
-        return view('pages.report.tanggap_darurat_bencana.index');
+        $title = 'Report Tanggap Darurat Bencana';
+        return view('pages.report.tanggap_darurat_bencana.index', compact('title'));
     }
     public function data(Request $request) {
         $query = Laporan::with('surveyor_name')

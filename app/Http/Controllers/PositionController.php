@@ -9,7 +9,8 @@ use Yajra\DataTables\Facades\DataTables;
 class PositionController extends Controller
 {
     public function index() {
-        return view('pages.position.index');
+        $title = 'Position';
+        return view('pages.position.index', compact('title'));
     }
 
     public function data() {

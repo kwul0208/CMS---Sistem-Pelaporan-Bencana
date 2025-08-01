@@ -11,7 +11,8 @@ use Yajra\DataTables\Facades\DataTables;
 class ReportDataSaluranController extends Controller
 {
     public function index() {
-        return view('pages.report.data_saluran.index');
+        $title = 'Report Data Saluran';
+        return view('pages.report.data_saluran.index', compact('title'));
     }
 
     public function data(Request $request) {
