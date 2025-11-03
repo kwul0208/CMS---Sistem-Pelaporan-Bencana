@@ -2,143 +2,108 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Company Profile - E-Lapor</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pepor Apps - Pencatatan Penduduk Digital</title>
   <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      line-height: 1.6;
-      background: #f9f9f9;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+    body { background: #f7f9fc; color: #333; }
+
     header {
-      background: linear-gradient(to right, #8e2de2, #4a00e0);
+      background: #0078D7;
       color: white;
-      padding: 60px 20px;
+      padding: 20px 60px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    header h1 { font-size: 1.5rem; }
+    header nav a {
+      color: white;
+      margin-left: 20px;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    header nav a:hover { text-decoration: underline; }
+
+    .hero {
       text-align: center;
+      padding: 100px 20px;
+      background: linear-gradient(135deg, #0078D7, #00A3FF);
+      color: white;
     }
-    header h1 {
-      font-size: 36px;
-      margin: 0;
-    }
-    header p {
-      font-size: 18px;
-      margin-top: 10px;
-    }
-    .section {
-      padding: 40px 20px;
-      max-width: 1000px;
-      margin: auto;
-    }
-    .section h2 {
-      text-align: center;
-      margin-bottom: 30px;
-      color: #4a00e0;
-    }
-    .features {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-      gap: 20px;
-      text-align: center;
-    }
-    .feature-box {
+    .hero h2 { font-size: 2.5rem; margin-bottom: 20px; }
+    .hero p { font-size: 1.1rem; margin-bottom: 30px; }
+    .hero a {
       background: white;
-      border-radius: 10px;
-      padding: 20px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      color: #0078D7;
+      padding: 12px 30px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
     }
-    .feature-box img {
-      width: 40px;
-      margin-bottom: 10px;
-    }
-    .screenshots {
+    .hero a:hover { background: #eaf4ff; }
+
+    .features {
       display: flex;
       flex-wrap: wrap;
-      gap: 20px;
       justify-content: center;
+      padding: 80px 40px;
+      gap: 40px;
     }
-    .screenshots img {
-      max-width: 300px;
+    .feature {
+      background: white;
       border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      width: 300px;
+      padding: 30px;
+      text-align: center;
     }
-    iframe {
-      width: 100%;
-      height: 400px;
-      border: none;
-      border-radius: 10px;
-      margin-top: 20px;
-    }
+    .feature h3 { color: #0078D7; margin-bottom: 10px; }
+
     footer {
-      background: #4a00e0;
+      background: #003A75;
       color: white;
       text-align: center;
-      padding: 30px 20px;
+      padding: 20px;
+      margin-top: 60px;
     }
+    footer a { color: #90c9ff; text-decoration: none; }
   </style>
 </head>
 <body>
 
-<header>
-  <h1>E-Lapor</h1>
-  <p>Sistem Informasi Pemantauan dan Laporan Saluran Drainase & Banjir</p>
-</header>
+  <header>
+    <h1>Pepor Apps</h1>
+    <nav>
+      <a href="#features">Fitur</a>
+      <a href="#download">Download</a>
+    </nav>
+  </header>
 
-<section class="section">
-  <h2>Tentang Aplikasi</h2>
-  <p>
-    Aplikasi ini merupakan platform digital yang dikembangkan untuk mendukung kegiatan monitoring saluran drainase dan penanggulangan banjir. Didesain untuk digunakan oleh admin dan petugas lapangan, aplikasi ini memungkinkan pencatatan data saluran, pelaporan tanggap darurat, serta pemetaan lokasi pekerjaan melalui integrasi dengan Google Maps.
-  </p>
-</section>
+  <section class="hero">
+    <h2>Pencatatan Penduduk Lebih Mudah & Cepat</h2>
+    <p>Pepor Apps membantu petugas dan masyarakat dalam mencatat, memperbarui, dan mengelola data kependudukan secara digital dan aman.</p>
+    <a href="#download">Mulai Sekarang</a>
+  </section>
 
-<section class="section">
-  <h2>Fitur Unggulan</h2>
-  <div class="features">
-    <div class="feature-box">
-      <img src="https://img.icons8.com/emoji/48/000000/warning-emoji.png" />
-      <p>Tanggap Darurat</p>
+  <section id="features" class="features">
+    <div class="feature">
+      <h3>📋 Pendataan Mudah</h3>
+      <p>Input data penduduk hanya dalam hitungan detik. Semua tersimpan otomatis di cloud.</p>
     </div>
-    <div class="feature-box">
-      <img src="https://img.icons8.com/color/48/000000/task.png" />
-      <p>Laporan Rutin</p>
+    <div class="feature">
+      <h3>🔒 Data Aman</h3>
+      <p>Seluruh data dienkripsi dan hanya dapat diakses oleh petugas yang berwenang.</p>
     </div>
-    <div class="feature-box">
-      <img src="https://img.icons8.com/color/48/000000/open-book--v2.png" />
-      <p>Laporan Swakelola</p>
+    <div class="feature">
+      <h3>📱 Akses Mobile</h3>
+      <p>Gunakan aplikasi di perangkat Android atau iOS untuk kemudahan di lapangan.</p>
     </div>
-    <div class="feature-box">
-      <img src="https://img.icons8.com/color/48/000000/water.png" />
-      <p>Data Saluran</p>
-    </div>
-    <div class="feature-box">
-      <img src="https://img.icons8.com/color/48/000000/org-structure.png" />
-      <p>Struktur Organisasi</p>
-    </div>
-    <div class="feature-box">
-      <img src="https://img.icons8.com/color/48/000000/facebook-like--v1.png" />
-      <p>Social Media</p>
-    </div>
-  </div>
-</section>
+  </section>
 
-{{-- <section class="section">
-  <h2>Tampilan Aplikasi</h2>
-  <div class="screenshots">
-    <img src="screenshot1.jpg" alt="Beranda">
-    <img src="screenshot2.jpg" alt="Detail Laporan">
-    <img src="screenshot3.jpg" alt="Daftar Laporan">
-  </div>
-</section> --}}
-
-{{-- <section class="section">
-  <h2>Peta Monitoring Saluran</h2>
-  <iframe src="https://www.google.com/maps/d/u/0/embed?mid=1mRnhYUTyWzMQrjAXW_0Ut_7IYgXZVgM" allowfullscreen></iframe>
-</section> --}}
-
-<footer>
-  <p>© 2025 E-Lapor - Dikembangkan oleh elapor</p>
-  <p>Email: elapor@gmail.com | Telepon: (021) 123-4567</p>
-</footer>
+  <footer>
+    <p>© 2025 Pepor Apps. All rights reserved. | <a href="privacy.html">Kebijakan Privasi</a></p>
+  </footer>
 
 </body>
 </html>
