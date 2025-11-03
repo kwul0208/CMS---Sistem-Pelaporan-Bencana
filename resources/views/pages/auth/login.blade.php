@@ -24,7 +24,7 @@
 
 </head>
 
-<body style="background: #0078D7;" >
+<body class="bg-green-600" >
 
     <div class="container">
 
