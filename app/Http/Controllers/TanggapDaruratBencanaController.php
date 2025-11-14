@@ -102,13 +102,13 @@ class TanggapDaruratBencanaController extends Controller
                 ]
             ];
             
-            try {
-                $accessToken = getAccessToken();
-                $response = sendMessage($accessToken, $projectId, $message);
-                Log::info('Message sent successfully: ' . print_r($response, true));
-            } catch (\Exception $e) {
-                Log::info('Error: ' . $e->getMessage());
-            }
+            // try {
+            //     $accessToken = getAccessToken();
+            //     $response = sendMessage($accessToken, $projectId, $message);
+            //     Log::info('Message sent successfully: ' . print_r($response, true));
+            // } catch (\Exception $e) {
+            //     Log::info('Error: ' . $e->getMessage());
+            // }
             // ===== END PUSH NOTIFICATION =====
 
             return response()->json([

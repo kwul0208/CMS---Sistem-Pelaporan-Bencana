@@ -45,13 +45,13 @@ class TestController extends Controller
             ]
         ];
 
-        try {
-            $accessToken = getAccessToken();
-            $response = sendMessage($accessToken, $projectId, $message);
-            echo 'Message sent successfully: ' . print_r($response, true);
-        } catch (\Exception $e) {
-            echo 'Error: ' . $e->getMessage();
-        }
+        // try {
+        //     $accessToken = getAccessToken();
+        //     $response = sendMessage($accessToken, $projectId, $message);
+        //     echo 'Message sent successfully: ' . print_r($response, true);
+        // } catch (\Exception $e) {
+        //     echo 'Error: ' . $e->getMessage();
+        // }
     }
 
     // function ini digunakan untuk mengirim notifikasi request approval dari user / bawahan ke atasannya
