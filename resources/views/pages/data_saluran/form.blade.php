@@ -1,7 +1,6 @@
 @extends('layout.main')
 
 @section('content')
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 
 
 <div class="container-fluid">
@@ -104,49 +103,59 @@
     </form>
 </div>
 
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD6AUPIR0eIiGldIIo0b06uqLxlZDyQh-I"></script>
+
 <script>
-    var map = L.map('map').setView([{{ old('latitude', $data_saluran->latitude ?? -6.2) }}, {{ old('longitude', $data_saluran->longitude ?? 106.8) }}], 13);
+    let map;
+    let marker;
 
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '© OpenStreetMap contributors'
-    }).addTo(map);
-    
-    var marker = L.marker([{{ old('latitude', $data_saluran->latitude ?? -6.2) }}, {{ old('longitude', $data_saluran->longitude ?? 106.8) }}], {
-        draggable: true
-    }).addTo(map);
+    function initMap() {
+        const initialLat = parseFloat("{{ old('latitude', $data_saluran->latitude ?? -6.2) }}");
+        const initialLng = parseFloat("{{ old('longitude', $data_saluran->longitude ?? 106.8) }}");
+        const initialPos = { lat: initialLat, lng: initialLng };
 
-    setTimeout(() => {
-        updateLatLng(-6.2,106.8)
-    },1000);
+        map = new google.maps.Map(document.getElementById("map"), {
+            zoom: 13,
+            center: initialPos,
+        });
 
+        marker = new google.maps.Marker({
+            position: initialPos,
+            map: map,
+            draggable: true,
+        });
 
+        updateLatLng(initialPos.lat, initialPos.lng);
+
+        // Update koordinat saat marker digeser
+        marker.addListener('dragend', function () {
+            const pos = marker.getPosition();
+            updateLatLng(pos.lat(), pos.lng());
+        });
+
+        // Update marker saat peta diklik
+        map.addListener('click', function (event) {
+            marker.setPosition(event.latLng);
+            updateLatLng(event.latLng.lat(), event.latLng.lng());
+        });
+    }
 
     function updateLatLng(lat, lng) {
         document.querySelector('input[name="latitude"]').value = lat;
         document.querySelector('input[name="longitude"]').value = lng;
     }
 
-    marker.on('dragend', function (e) {
-        var latlng = marker.getLatLng();
-        updateLatLng(latlng.lat, latlng.lng);
-    });
-
-    map.on('click', function (e) {
-        marker.setLatLng(e.latlng);
-        updateLatLng(e.latlng.lat, e.latlng.lng);
-    });
-
     document.getElementById('btn-lokasi').addEventListener('click', function () {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function (position) {
-                var lat = position.coords.latitude;
-                var lng = position.coords.longitude;
-
-                var latlng = L.latLng(lat, lng);
-                marker.setLatLng(latlng);
-                map.setView(latlng, 15); // Zoom ke lokasi
-                updateLatLng(lat, lng);
+                const pos = {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude
+                };
+                marker.setPosition(pos);
+                map.setCenter(pos);
+                map.setZoom(15);
+                updateLatLng(pos.lat, pos.lng);
             }, function (error) {
                 alert('Gagal mengambil lokasi: ' + error.message);
             });
@@ -155,7 +164,12 @@
         }
     });
 
+    // Inisialisasi map saat DOM siap
+    document.addEventListener('DOMContentLoaded', function () {
+        initMap();
+    });
 </script>
+
 <script>
     function createPhotoInput(name) {
         return `

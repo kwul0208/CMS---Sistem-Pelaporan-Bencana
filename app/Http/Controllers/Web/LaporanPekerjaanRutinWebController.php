@@ -78,32 +78,32 @@ class LaporanPekerjaanRutinWebController extends Controller
             $validated['date'] = Carbon::parse($validated['date'])->format('Y-m-d');
             $data = Laporan::create($validated);
 
-            // // ===== PUSH NOTIFICATION =====
-            // $projectId = env('FIREBASE_PROJECT_ID');
-            // $topic = "laporan";
-            // $fullname = auth()->user()->name;
-            // $name_request = "Laporan Pekerjaan Rutin";
-            // $route = "laporan_pekerjaan_rutin";
+            // ===== PUSH NOTIFICATION =====
+            $projectId = env('FIREBASE_PROJECT_ID');
+            $topic = "laporan";
+            $fullname = auth()->user()->name;
+            $name_request = "Laporan Pekerjaan Rutin";
+            $route = "laporan_pekerjaan_rutin";
 
-            // $message = [
-            //     "message" => [
-            //         "topic" => $topic,
-            //         "notification" => [
-            //             "title" => $name_request,
-            //             "body" => "{$fullname} telah menginput data laporan {$name_request}"
-            //         ],
-            //         "data" => [
-            //             "route" => $route
-            //         ]
-            //     ]
-            // ];
+            $message = [
+                "message" => [
+                    "topic" => $topic,
+                    "notification" => [
+                        "title" => $name_request,
+                        "body" => "{$fullname} telah menginput data laporan {$name_request}"
+                    ],
+                    "data" => [
+                        "route" => $route
+                    ]
+                ]
+            ];
             
-            // try {
-            //     $accessToken = getAccessToken();
-            //     $response = sendMessage($accessToken, $projectId, $message);
-            // } catch (\Exception $e) {
-            // }
-            // // ===== END PUSH NOTIFICATION =====
+            try {
+                $accessToken = getAccessToken();
+                $response = sendMessage($accessToken, $projectId, $message);
+            } catch (\Exception $e) {
+            }
+            // ===== END PUSH NOTIFICATION =====
 
             return redirect()->route('laporan_pekerjaan_rutin.index')->with('success', 'Laporan berhasil ditambah.');
 

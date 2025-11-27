@@ -96,32 +96,32 @@ class DataSaluranWebController extends Controller
                 ]);
             }
 
-            // // ===== PUSH NOTIFICATION =====
-            // $projectId = env('FIREBASE_PROJECT_ID');
-            // $topic = "laporan";
-            // $fullname = auth()->user()->name;
-            // $name_request = "Data Saluran";
-            // $route = "data_saluran";
+            // ===== PUSH NOTIFICATION =====
+            $projectId = env('FIREBASE_PROJECT_ID');
+            $topic = "laporan";
+            $fullname = auth()->user()->name;
+            $name_request = "Data Saluran";
+            $route = "data_saluran";
 
-            // $message = [
-            //     "message" => [
-            //         "topic" => $topic,
-            //         "notification" => [
-            //             "title" => $name_request,
-            //             "body" => "{$fullname} telah menginput data laporan {$name_request}"
-            //         ],
-            //         "data" => [
-            //             "route" => $route
-            //         ]
-            //     ]
-            // ];
+            $message = [
+                "message" => [
+                    "topic" => $topic,
+                    "notification" => [
+                        "title" => $name_request,
+                        "body" => "{$fullname} telah menginput data laporan {$name_request}"
+                    ],
+                    "data" => [
+                        "route" => $route
+                    ]
+                ]
+            ];
             
-            // try {
-            //     $accessToken = getAccessToken();
-            //     $response = sendMessage($accessToken, $projectId, $message);
-            // } catch (\Exception $e) {
-            // }
-            // // ===== END PUSH NOTIFICATION =====
+            try {
+                $accessToken = getAccessToken();
+                $response = sendMessage($accessToken, $projectId, $message);
+            } catch (\Exception $e) {
+            }
+            // ===== END PUSH NOTIFICATION =====
 
             return redirect()->route('data_saluran.index')->with('success', 'Laporan berhasil ditambah.');
 

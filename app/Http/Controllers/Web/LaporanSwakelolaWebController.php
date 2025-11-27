@@ -115,32 +115,32 @@ class LaporanSwakelolaWebController extends Controller
                 ]);
             }
 
-            // // ===== PUSH NOTIFICATION =====
-            // $projectId = env('FIREBASE_PROJECT_ID');
-            // $topic = "laporan";
-            // $fullname = auth()->user()->name;
-            // $name_request = "Laporan Pekerjaan Swakelola";
-            // $route = "laporan_swakelola";
+            // ===== PUSH NOTIFICATION =====
+            $projectId = env('FIREBASE_PROJECT_ID');
+            $topic = "laporan";
+            $fullname = auth()->user()->name;
+            $name_request = "Laporan Pekerjaan Swakelola";
+            $route = "laporan_swakelola";
 
-            // $message = [
-            //     "message" => [
-            //         "topic" => $topic,
-            //         "notification" => [
-            //             "title" => $name_request,
-            //             "body" => "{$fullname} telah menginput data laporan {$name_request}"
-            //         ],
-            //         "data" => [
-            //             "route" => $route
-            //         ]
-            //     ]
-            // ];
+            $message = [
+                "message" => [
+                    "topic" => $topic,
+                    "notification" => [
+                        "title" => $name_request,
+                        "body" => "{$fullname} telah menginput data laporan {$name_request}"
+                    ],
+                    "data" => [
+                        "route" => $route
+                    ]
+                ]
+            ];
             
-            // try {
-            //     $accessToken = getAccessToken();
-            //     $response = sendMessage($accessToken, $projectId, $message);
-            // } catch (\Exception $e) {
-            // }
-            // // ===== END PUSH NOTIFICATION =====
+            try {
+                $accessToken = getAccessToken();
+                $response = sendMessage($accessToken, $projectId, $message);
+            } catch (\Exception $e) {
+            }
+            // ===== END PUSH NOTIFICATION =====
 
             return redirect()->route('laporan_swakelola.index')->with('success', 'Laporan berhasil ditambah.');
 
